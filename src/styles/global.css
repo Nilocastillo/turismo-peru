@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@plugin "@midudev/tailwind-animations";
+
+@theme {
+  --color-primary: #e52330;
+  --color-secondary: #0d1725;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Outfit Variable", sans-serif;
+}

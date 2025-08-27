@@ -1,0 +1,34 @@
+name: Deploy to Namecheap via FTP
+
+on:
+  push:
+    branches:
+      - main # o la rama que uses para producción
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Astro project
+        run: npm run build
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ftp.turismoperu.com.pe # Cambia esto por tu servidor FTP (ej: ftp.midominio.com)
+          username: ${{ secrets.FTP_USERNAME_TPC }}
+          password: ${{ secrets.FTP_PASSWORD_TPC }}
+          local-dir: dist/ # Carpeta donde Astro genera el build final
+          server-dir: / # Carpeta remota donde quieres subir los archivos
