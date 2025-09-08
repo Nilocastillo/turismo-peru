@@ -1,0 +1,30 @@
+---
+import TourCard from "@/components/Card.astro";
+
+interface Props {
+  tours: any[];
+}
+
+const { tours } = Astro.props;
+---
+
+<div class="grid grid-cols-6 gap-6 auto-rows-[500px]">
+  {
+    tours.map((tour, i) => (
+      <div
+        class:list={[
+          i < 2 ? "col-span-3" : "col-span-2", // 2 arriba, 3 abajo
+        ]}
+      >
+        <TourCard
+          title={tour.data.title}
+          duration={tour.data.duration}
+          category={tour.data.category}
+          href={`/tours/${tour.slug}`}
+          image={tour.data.image}
+          alt={tour.data.alt}
+        />
+      </div>
+    ))
+  }
+</div>

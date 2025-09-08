@@ -1,0 +1,34 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import Card from "@/components/Card.astro";
+
+const tours = (await getCollection("tours")).filter(
+  (tour) => tour.data.category.toLowerCase() === "cultural",
+);
+---
+
+<Layout>
+  <main class="max-w-7xl mx-auto px-4 py-10 mt-32">
+    <h1
+      class="text-balance text-center text-5xl md:text-6xl lg:gap-20 lg:text-6xl tracking-tight mb-10"
+    >
+      Tours de Aventura en Perú
+    </h1>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-[320px]">
+      {
+        tours.map((tour) => (
+          <Card
+            title={tour.data.title}
+            duration={tour.data.duration}
+            category={tour.data.category}
+            href={`/tours/${tour.slug}/`}
+            image={tour.data.image}
+            alt={tour.data.alt}
+          />
+        ))
+      }
+    </div>
+  </main>
+</Layout>

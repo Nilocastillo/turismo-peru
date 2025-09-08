@@ -1,0 +1,15 @@
+---
+const { icon: Icon, class: className = "" } = Astro.props;
+---
+
+<li class={`flex items-start gap-2 my-1 ${className}`}>
+  <!-- Icono con tamaño fijo y altura consistente -->
+  <div class="flex-shrink-0 h-5 w-5 flex items-center justify-center mt-1">
+    <Icon size={20} class="block" />
+  </div>
+
+  <!-- Slot para texto multilinea -->
+  <span class="text-base font-normal leading-relaxed break-words">
+    <slot />
+  </span>
+</li>

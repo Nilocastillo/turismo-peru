@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const tours = await getCollection("tours");
+
+  return tours.map((tour) => ({
+    params: { id: tour.slug },
+    props: { tour },
+  }));
+}
+
+const { tour } = Astro.props;
+const { data, slug } = tour;
+const { title, duration, location, departure, description, image, alt } = data;
+
+const { Content } = await render(tour);
+
+export const prerender = true;
+---
+
+<Layout title={`${title} - TPC Tours`} description={description}>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <header class="relative w-full h-[500px] mb-12 mt-24">
+      <!-- Imagen de fondo -->
+      {
+        image && (
+          <img
+            src={image}
+            alt={alt}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+        )
+      }
+
+      <!-- Capa oscura para contraste -->
+      <div class="absolute inset-0 bg-black/40"></div>
+
+      <!-- Título y datos centrados -->
+      <div
+        class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4"
+      >
+        <h1 class="text-5xl md:text-6xl font-bold drop-shadow-lg">{title}</h1>
+        <p class="text-lg opacity-90 drop-shadow-md mt-2">
+          {duration} | {location} | {departure}
+        </p>
+      </div>
+    </header>
+
+    <!-- Contenido -->
+    <section class="mb-12 prose max-w-none">
+      <Content />
+    </section>
+  </main>
+</Layout>
