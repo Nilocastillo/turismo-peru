@@ -8,12 +8,17 @@ interface Props {
 const { tours } = Astro.props;
 ---
 
-<div class="grid grid-cols-6 gap-6 auto-rows-[500px]">
+<div
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 auto-rows-[350px] md:auto-rows-[400px] lg:auto-rows-[500px]"
+>
   {
     tours.map((tour, i) => (
       <div
         class:list={[
-          i < 2 ? "col-span-3" : "col-span-2", // 2 arriba, 3 abajo
+          // En escritorio usamos col-span, en tablet/móvil cada uno ocupa 1 o 2 columnas según grid
+          i < 2
+            ? "lg:col-span-3 md:col-span-1 col-span-1"
+            : "lg:col-span-2 md:col-span-1 col-span-1",
         ]}
       >
         <TourCard
