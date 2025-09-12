@@ -9,15 +9,16 @@ const { tours } = Astro.props;
 ---
 
 <div
-  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 auto-rows-[350px] md:auto-rows-[400px] lg:auto-rows-[500px]"
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6
+         auto-rows-[350px] md:auto-rows-[400px] lg:auto-rows-[500px]"
 >
   {
     tours.map((tour, i) => (
       <div
         class:list={[
-          // En escritorio usamos col-span, en tablet/móvil cada uno ocupa 1 o 2 columnas según grid
+          // En escritorio (lg) se reparte distinto, en tablet (md) queda 2 col, en mobile 1 col
           i < 2
-            ? "lg:col-span-3 md:col-span-1 col-span-1"
+            ? "lg:col-span-3 md:col-span-2 col-span-1"
             : "lg:col-span-2 md:col-span-1 col-span-1",
         ]}
       >

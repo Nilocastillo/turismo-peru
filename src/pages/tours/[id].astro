@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const tours = await getCollection("tours");
@@ -23,23 +24,26 @@ export const prerender = true;
 <Layout title={`${title} - TPC Tours`} description={description}>
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
-    <header class="relative w-full h-[500px] mb-12 mt-24">
-      <!-- Imagen de fondo -->
+
+    <header class="relative w-full h-[500px] mb-12 mt-24 overflow-hidden">
+      <!-- Imagen optimizada -->
       {
         image && (
-          <img
+          <Image
             src={image}
             alt={alt}
+            layout="full-width"
             class="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
+            loading="lazy"
+            decoding="async"
           />
         )
       }
 
-      <!-- Capa oscura para contraste -->
+      <!-- Capa oscura -->
       <div class="absolute inset-0 bg-black/40"></div>
 
-      <!-- Título y datos centrados -->
+      <!-- Título -->
       <div
         class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4"
       >
