@@ -29,11 +29,10 @@ export const prerender = true;
       <!-- Imagen optimizada -->
       {
         image && (
-          <Image
-            src={image}
+          <img
+            src={image.src}
             alt={alt}
-            layout="full-width"
-            class="absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
             decoding="async"
           />
