@@ -1,0 +1,42 @@
+---
+interface Props {
+  phone?: string;
+  message?: string;
+}
+
+const {
+  phone = "51950311111",
+  message = "¡Hola! Quiero consultar disponibilidad del tour.",
+} = Astro.props;
+const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+---
+
+<div class="flex justify-center mt-6">
+  <a
+    href={whatsappLink}
+    target="_blank"
+    class="relative inline-flex items-center px-10 py-5 bg-green-600 hover:bg-green-700 text-white text-xl font-bold rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105"
+  >
+    <!-- Efecto ping -->
+    <span
+      class="absolute inset-0 rounded-2xl bg-green-400 opacity-50 animate-ping"
+    ></span>
+
+    <!-- Contenido del botón -->
+    <div class="relative flex items-center z-10">
+      <!-- SVG WhatsApp -->
+      <svg
+        class="w-7 h-7 mr-3"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.52 3.48A11.84 11.84 0 0012 0C5.37 0 0 5.37 0 12c0 2.12.55 4.1 1.52 5.88L0 24l6.24-1.56A11.88 11.88 0 0012 24c6.63 0 12-5.37 12-12 0-3.18-1.24-6.18-3.48-8.52zm-8.52 17.52a9.87 9.87 0 01-5.16-1.44l-.36-.21-3.72.93.99-3.63-.24-.36a9.84 9.84 0 0115.48-11.88 9.84 9.84 0 01-6.99 16.59zm5.04-7.92c-.27-.14-1.62-.81-1.86-.9-.24-.09-.42-.14-.6.14s-.69.9-.84 1.08c-.15.18-.3.21-.57.07-.27-.14-1.14-.42-2.16-1.32-.8-.71-1.34-1.59-1.5-1.86-.15-.27-.02-.42.12-.56.12-.12.27-.3.42-.45.15-.15.2-.27.3-.45.09-.18.05-.34-.02-.48-.07-.14-.6-1.44-.82-1.96-.22-.51-.44-.44-.6-.45-.15 0-.33-.02-.51-.02s-.48.07-.73.36c-.24.29-.96.94-.96 2.28 0 1.34.99 2.64 1.13 2.82.14.18 1.94 2.96 4.7 4.15.66.28 1.18.45 1.58.58.66.21 1.26.18 1.74.11.53-.08 1.62-.66 1.85-1.29.22-.63.22-1.17.15-1.29-.07-.12-.24-.18-.51-.32z"
+        ></path>
+      </svg>
+
+      Consultar disponibilidad
+    </div>
+  </a>
+</div>

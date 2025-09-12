@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
+import WhatsAppButton from "@/components/WhatsAppButton.astro";
 
 export async function getStaticPaths() {
   const tours = await getCollection("tours");
@@ -54,8 +55,9 @@ export const prerender = true;
     </header>
 
     <!-- Contenido -->
-    <section class="mb-12 prose max-w-none">
+    <section class="">
       <Content />
+      <WhatsAppButton />
     </section>
   </main>
 </Layout>
