@@ -16,7 +16,7 @@ const tours = (await getCollection("tours")).filter(
       Tours Culturales en Perú
     </h1>
 
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-[320px]">
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
         tours.map((tour) => (
           <Card

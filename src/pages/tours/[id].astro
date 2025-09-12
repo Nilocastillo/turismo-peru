@@ -26,29 +26,36 @@ export const prerender = true;
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
 
-    <header class="relative w-full h-[500px] mb-12 mt-24 overflow-hidden">
-      <!-- Imagen optimizada -->
+    <header
+      class="relative w-full aspect-[1440/800] mb-12 mt-30 md:mt:24 overflow-hidden"
+    >
+      <!-- Imagen optimizada con Astro -->
       {
         image && (
-          <img
-            src={image.src}
+          <Image
+            src={image}
             alt={alt}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
+            layout="constrained"
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
             decoding="async"
           />
         )
       }
 
-      <!-- Capa oscura -->
+      <!-- Overlay oscuro -->
       <div class="absolute inset-0 bg-black/40"></div>
 
-      <!-- Título -->
+      <!-- Contenido centrado -->
       <div
-        class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-4"
+        class="relative z-10 flex flex-col justify-center items-center h-full text-center px-4"
       >
-        <h1 class="text-5xl md:text-6xl font-bold drop-shadow-lg">{title}</h1>
-        <p class="text-lg opacity-90 drop-shadow-md mt-2">
+        <h1 class="text-4xl md:text-5xl font-bold drop-shadow-lg text-white">
+          {title}
+        </h1>
+        <p
+          class="text-base md:text-lg opacity-90 drop-shadow-md mt-2 text-white"
+        >
           {duration} | {location} | {departure}
         </p>
       </div>
