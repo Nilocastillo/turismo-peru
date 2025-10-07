@@ -2,24 +2,23 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
-
-import { aventura } from "@/consts/pageTitles";
+import { lujo } from "@/consts/pageTitles";
 
 const tours = (await getCollection("tours")).filter(
-  (tour) => tour.data.category.toLowerCase() === "aventura",
+  (tour) => tour.data.category.toLowerCase() === "lujo",
 );
 
 const description =
-  "Explora Perú con nuestros tours de aventura: trekking, montañas, lagunas y experiencias únicas en contacto con la naturaleza.";
-const canonical = "https://turismoperu.com.pe/aventura";
+  "Viva el Perú en su máxima expresión con viajes de lujo: tren Hiram Bingham, hoteles 5 estrellas y experiencias personalizadas en Machu Picchu y Cusco.";
+const canonical = "https://turismoperu.com.pe/lujo";
 ---
 
-<Layout title={aventura} description={description} canonical={canonical}>
+<Layout title={lujo} description={description} canonical={canonical}>
   <main class="max-w-7xl mx-auto px-4 py-10 mt-32">
     <h1
       class="text-balance text-center text-5xl md:text-6xl lg:gap-20 lg:text-6xl tracking-tight mb-10"
     >
-      Experiencias de Aventura en Perú
+      Experiencias de lujo en Perú
     </h1>
 
     <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

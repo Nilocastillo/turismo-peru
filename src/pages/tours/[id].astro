@@ -4,6 +4,11 @@ import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import WhatsAppButton from "@/components/WhatsAppButton.astro";
 
+import { fixedTitle } from "@/consts/pageTitles";
+
+const { id } = Astro.params;
+if (!id) return Astro.redirect("/404");
+
 export async function getStaticPaths() {
   const tours = await getCollection("tours");
 
@@ -19,10 +24,15 @@ const { title, duration, location, departure, description, image, alt } = data;
 
 const { Content } = await render(tour);
 
+const canonical = `https://www.turismoperu.com.pe/tours/${id}`;
 export const prerender = true;
 ---
 
-<Layout title={`${title} - TPC Tours`} description={description}>
+<Layout
+  title={`${title} | ${fixedTitle}`}
+  description={description}
+  canonical={canonical}
+>
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Header -->
 
@@ -39,6 +49,7 @@ export const prerender = true;
             class="absolute inset-0 w-full h-full object-cover"
             loading="eager"
             decoding="async"
+            priority
           />
         )
       }

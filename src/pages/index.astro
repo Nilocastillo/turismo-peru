@@ -8,13 +8,14 @@ import CulturalBento from "@/components/CulturalBento.astro";
 
 const tours = await getCollection("tours");
 const culturalTours = tours.filter((t) => t.data.category === "cultural");
+
+export const prerender = true;
 ---
 
 <Layout
-  title="Agencia de Viajes en Perú - Experiencias Auténticas con Turismo Perú Consultores"
-  description="Agencia de viajes en Perú especializada en experiencias auténticas. Viajes a Machu Picchu, Cusco, Lima, Amazonía y más. Turismo sostenible y personalizado."
+  title="Turismo Perú Consultores - Agencia de Viajes en Perú y Machu Picchu"
+  description="Agencia de viajes en Perú con experiencias auténticas. Viajes a Machu Picchu, Cusco, Lima y Amazonía. Turismo sostenible y personalizado."
   canonical="https://www.turismoperu.com.pe/"
-  ogImage="https://www.turismoperu.com.pe/og-home.jpg"
 >
   <Hero />
   <section class="max-w-7xl mx-auto px-6 py-24">
