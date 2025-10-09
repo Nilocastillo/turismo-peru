@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
 import { cultural } from "@/consts/pageTitles";
+import Badge from "@/components/Badge.astro";
 
 const tours = (await getCollection("tours")).filter(
   (tour) => tour.data.category.toLowerCase() === "cultural",
@@ -14,14 +15,35 @@ const canonical = "https://turismoperu.com.pe/cultural";
 ---
 
 <Layout title={cultural} description={description} canonical={canonical}>
-  <main class="max-w-7xl mx-auto px-4 py-10 mt-32">
-    <h1
-      class="text-balance text-center text-5xl md:text-6xl lg:gap-20 lg:text-6xl tracking-tight mb-10"
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <header
+      class="max-w-2xl mx-auto pt-7 flex flex-col gap-5 mt-24 md:mt-48 mb-14"
     >
-      Experiencias Culturales en Perú
-    </h1>
-
-    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <h1
+        class="text-balance text-center text-5xl md:text-7xl tracking-tight mb-4"
+      >
+        Experiencias Culturales en Perú
+      </h1>
+      <p class="text-lg text-pretty text-black mx-auto">
+        Explora la riqueza cultural del Perú a través de sus tradiciones,
+        historia ancestral y sitios arqueológicos únicos como Cusco, Lima y
+        Arequipa.
+      </p>
+    </header>
+    <div
+      class="max-w-2xl mx-auto flex flex-wrap gap-x-5 gap-y-3 items-center justify-center mb-14"
+    >
+      <Badge>Experiencias Culturales</Badge>
+      <Badge>Arte y Tradición</Badge>
+      <Badge>Patrimonio Inca</Badge>
+      <Badge>Tours Guiados</Badge>
+      <Badge>Museos</Badge>
+      <Badge>Cultura Andina</Badge>
+      <Badge>Tradiciones Vivas</Badge>
+      <Badge>Festividades Locales</Badge>
+      <Badge>Arquitectura Colonial</Badge>
+    </div>
+    <section class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
         tours.map((tour) => (
           <Card
@@ -34,6 +56,6 @@ const canonical = "https://turismoperu.com.pe/cultural";
           />
         ))
       }
-    </div>
+    </section>
   </main>
 </Layout>

@@ -1,0 +1,430 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import CountrySelect from "@/components/CountrySelect.astro";
+import { reservas } from "@/consts/pageTitles";
+
+const formAction = "https://formspree.io/f/abcxyz"; // reemplaza con tu URL real
+const whatsappAgency = "51950311111"; // tu número con código de país (51 = Perú)
+const description =
+  "Reserva tu tren a Machu Picchu (Inca Rail o Perú Rail), elige tu circuito y asegura tu experiencia de forma rápida y segura.";
+const canonical = "https://turismoperu.com.pe/easy-machupicchu";
+---
+
+<Layout title={reservas} description={description} canonical={canonical}>
+  <main class="max-w-3xl mx-auto px-4 py-10 mt-24 md:mt-48">
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-6 text-gray-800">
+      Reserva fácil a Machu Picchu
+    </h1>
+    <p class="text-lg text-gray-600 text-center max-w-2xl mx-auto mb-12">
+      Completa el formulario para reservar tu tren, seleccionar tu circuito y
+      recibir confirmación personalizada en tu correo o WhatsApp.
+    </p>
+
+    <form
+      id="reservationForm"
+      method="POST"
+      action={formAction}
+      class="bg-white shadow-lg rounded-2xl p-8 space-y-6"
+    >
+      <!-- Nombre -->
+      <div>
+        <label for="name" class="block font-semibold mb-2 text-gray-700"
+          >Nombre completo <span class="text-red-500">*</span></label
+        >
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="Ingresa tu nombre completo"
+          class="w-full border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="block font-semibold mb-2 text-gray-700"
+          >Correo electrónico <span class="text-red-500">*</span></label
+        >
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="ejemplo@correo.com"
+          class="w-full border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all"
+        />
+      </div>
+
+      <!-- País -->
+      <CountrySelect />
+
+      <!-- WhatsApp -->
+      <div>
+        <label for="whatsapp" class="block font-semibold mb-2 text-gray-700"
+          >Número de WhatsApp <span class="text-red-500">*</span></label
+        >
+        <div class="flex gap-2">
+          <input
+            type="text"
+            id="countryCodeDisplay"
+            readonly
+            placeholder="+51"
+            class="w-24 border border-gray-300 rounded-xl py-3 px-3 bg-gray-100 text-center font-semibold text-gray-700 cursor-not-allowed"
+          />
+          <input
+            type="tel"
+            id="whatsapp"
+            name="whatsapp"
+            placeholder="987654321"
+            required
+            pattern="[0-9]+"
+            class="flex-1 border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none transition-all"
+          />
+        </div>
+        <p class="text-sm text-gray-500 mt-1">
+          El código de país se selecciona automáticamente. Solo ingresa tu
+          número.
+        </p>
+      </div>
+
+      <!-- Compañía de tren -->
+      <div>
+        <label for="train" class="block font-semibold mb-2 text-gray-700"
+          >Compañía de tren <span class="text-red-500">*</span></label
+        >
+        <select
+          id="train"
+          name="train"
+          required
+          class="w-full border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-white"
+        >
+          <option value="">Selecciona una opción</option>
+          <option value="Peru Rail">Peru Rail</option>
+          <option value="Inca Rail">Inca Rail</option>
+        </select>
+      </div>
+
+      <!-- Servicio dinámico -->
+      <div>
+        <label for="service" class="block font-semibold mb-2 text-gray-700"
+          >Servicio <span class="text-red-500">*</span></label
+        >
+        <select
+          id="service"
+          name="service"
+          required
+          disabled
+          class="w-full border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+        >
+          <option value="">Primero selecciona una compañía...</option>
+        </select>
+      </div>
+
+      <!-- Circuito -->
+      <div>
+        <label for="circuit" class="block font-semibold mb-2 text-gray-700"
+          >Circuito en Machu Picchu <span class="text-red-500">*</span></label
+        >
+        <select
+          id="circuit"
+          name="circuit"
+          required
+          class="w-full border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all bg-white"
+        >
+          <option value="">Selecciona circuito</option>
+          <option value="Circuito 1 – Panorámico clásico"
+            >Circuito 1 – Panorámico clásico</option
+          >
+          <option value="Circuito 2 – Completo (Montaña Huayna Picchu)"
+            >Circuito 2 – Completo (Montaña Huayna Picchu)</option
+          >
+          <option value="Circuito 3 – Bajo (Templo del Sol)"
+            >Circuito 3 – Bajo (Templo del Sol)</option
+          >
+          <option value="Circuito 4 – Extendido (Montaña Machu Picchu)"
+            >Circuito 4 – Extendido (Montaña Machu Picchu)</option
+          >
+        </select>
+      </div>
+
+      <!-- Mensaje adicional (opcional) -->
+      <div>
+        <label for="message" class="block font-semibold mb-2 text-gray-700"
+          >Mensaje adicional (opcional)</label
+        >
+        <textarea
+          id="message"
+          name="message"
+          rows="3"
+          placeholder="¿Tienes alguna pregunta o solicitud especial?"
+          class="w-full border border-gray-300 rounded-xl py-3 px-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all resize-none"
+        ></textarea>
+      </div>
+
+      <!-- Botones -->
+      <div class="flex flex-col sm:flex-row gap-4 pt-4">
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
+            ></path>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
+            ></path>
+          </svg>
+          Enviar solicitud
+        </button>
+
+        <button
+          type="button"
+          id="whatsappBtn"
+          class="w-full bg-green-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-green-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+            ></path>
+          </svg>
+          Enviar por WhatsApp
+        </button>
+      </div>
+
+      <p class="text-sm text-gray-500 text-center pt-2">
+        <span class="text-red-500">*</span> Campos obligatorios
+      </p>
+    </form>
+  </main>
+
+  <script is:inline define:vars={{ whatsappAgency }}>
+    document.addEventListener("astro:page-load", () => {
+      const form = document.getElementById("reservationForm");
+      const whatsappBtn = document.getElementById("whatsappBtn");
+      const trainSelect = document.getElementById("train");
+      const serviceSelect = document.getElementById("service");
+      const countryHidden = document.getElementById("country-hidden");
+      const countryNameHidden = document.getElementById("country-name-hidden");
+      const whatsappInput = document.getElementById("whatsapp");
+      const countryCodeDisplay = document.getElementById("countryCodeDisplay");
+
+      // Servicios por compañía
+      const services = {
+        "Peru Rail": [
+          "Expedition",
+          "Vistadome",
+          "Vistadome Observatory",
+          "Hiram Bingham",
+        ],
+        "Inca Rail": [
+          "The Voyager",
+          "The 360°",
+          "The Prime",
+          "The First Class",
+        ],
+      };
+
+      // Observar cambios en el código de país (actualizado por CountrySelect)
+      const observer = new MutationObserver(() => {
+        const code = countryHidden?.value || "51";
+        countryCodeDisplay.value = `+${code}`;
+      });
+
+      if (countryHidden) {
+        observer.observe(countryHidden, {
+          attributes: true,
+          attributeOldValue: true,
+          characterData: true,
+          subtree: true,
+          childList: true,
+        });
+
+        // También escuchar cambios directos
+        countryHidden.addEventListener("change", () => {
+          const code = countryHidden.value || "51";
+          countryCodeDisplay.value = `+${code}`;
+        });
+      }
+
+      // Cambiar servicios dinámicamente
+      trainSelect.addEventListener("change", (e) => {
+        const company = e.target.value;
+        serviceSelect.innerHTML =
+          '<option value="">Selecciona servicio...</option>';
+
+        if (services[company]) {
+          serviceSelect.disabled = false;
+          services[company].forEach((service) => {
+            const opt = document.createElement("option");
+            opt.value = service;
+            opt.textContent = service;
+            serviceSelect.appendChild(opt);
+          });
+        } else {
+          serviceSelect.disabled = true;
+          serviceSelect.innerHTML =
+            '<option value="">Primero selecciona una compañía...</option>';
+        }
+      });
+
+      // Prevenir edición del código de país
+      countryCodeDisplay.addEventListener("keydown", (e) => {
+        e.preventDefault();
+      });
+
+      countryCodeDisplay.addEventListener("paste", (e) => {
+        e.preventDefault();
+      });
+
+      // Solo permitir números en el campo de WhatsApp
+      whatsappInput.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/\D/g, "");
+      });
+
+      // Validación y envío por WhatsApp
+      whatsappBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        // Obtener valores
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const countryName = countryNameHidden?.value || "";
+        const countryCode = countryHidden?.value || "";
+        const whatsapp = whatsappInput.value.trim();
+        const train = form.train.value;
+        const service = form.service.value;
+        const circuit = form.circuit.value;
+        const message = form.message?.value.trim() || "";
+
+        // Validar campos requeridos
+        if (!name) {
+          alert("⚠️ Por favor ingresa tu nombre completo.");
+          form.name.focus();
+          return;
+        }
+
+        if (!email) {
+          alert("⚠️ Por favor ingresa tu correo electrónico.");
+          form.email.focus();
+          return;
+        }
+
+        // Validar formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert("⚠️ Por favor ingresa un correo electrónico válido.");
+          form.email.focus();
+          return;
+        }
+
+        if (!countryName) {
+          alert("⚠️ Por favor selecciona tu país.");
+          document.getElementById("country-input")?.focus();
+          return;
+        }
+
+        if (!whatsapp) {
+          alert("⚠️ Por favor ingresa tu número de WhatsApp.");
+          whatsappInput.focus();
+          return;
+        }
+
+        if (whatsapp.length < 6) {
+          alert(
+            "⚠️ El número de WhatsApp parece ser muy corto. Por favor verifica.",
+          );
+          whatsappInput.focus();
+          return;
+        }
+
+        if (!train) {
+          alert("⚠️ Por favor selecciona la compañía de tren.");
+          trainSelect.focus();
+          return;
+        }
+
+        if (!service) {
+          alert("⚠️ Por favor selecciona el servicio.");
+          serviceSelect.focus();
+          return;
+        }
+
+        if (!circuit) {
+          alert("⚠️ Por favor selecciona el circuito.");
+          form.circuit.focus();
+          return;
+        }
+
+        // Construir número completo de WhatsApp
+        const fullWhatsappNumber = `${countryCode}${whatsapp}`;
+
+        // Construir mensaje para WhatsApp
+        let whatsappMessage = `Hola 👋 soy *${name}*\nDeseo reservar un viaje a Machu Picchu.\n\n`;
+        whatsappMessage += `📧 *Email:* ${email}\n`;
+        whatsappMessage += `🌍 *País:* ${countryName}\n`;
+        whatsappMessage += `📱 *WhatsApp:* +${fullWhatsappNumber}\n`;
+        whatsappMessage += `🚆 *Tren:* ${train}\n`;
+        whatsappMessage += `💺 *Servicio:* ${service}\n`;
+        whatsappMessage += `🗺️ *Circuito:* ${circuit}\n`;
+
+        if (message) {
+          whatsappMessage += `\n💬 *Mensaje adicional:*\n${message}\n`;
+        }
+
+        whatsappMessage += `\nPor favor, confírmame disponibilidad y precios. ¡Gracias!`;
+
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+        const waUrl = `https://wa.me/${whatsappAgency}?text=${encodedMessage}`;
+
+        // Abrir WhatsApp en nueva pestaña
+        window.open(waUrl, "_blank");
+      });
+
+      // Manejar envío del formulario normal (al servicio)
+      form.addEventListener("submit", (e) => {
+        // El formulario se enviará normalmente a la URL de action (formspree)
+        // Podemos agregar validaciones adicionales aquí si es necesario
+        const countryName = countryNameHidden?.value;
+        const countryCode = countryHidden?.value;
+        const whatsapp = whatsappInput.value.trim();
+
+        if (countryName && countryCode && whatsapp) {
+          // Crear un campo oculto con el número completo para enviar
+          const fullNumber = document.createElement("input");
+          fullNumber.type = "hidden";
+          fullNumber.name = "whatsapp_full";
+          fullNumber.value = `+${countryCode} ${whatsapp}`;
+          form.appendChild(fullNumber);
+        }
+      });
+
+      // Prevenir envío del formulario si se presiona Enter en campos de texto
+      form.addEventListener("keypress", (e) => {
+        if (
+          e.key === "Enter" &&
+          e.target.type !== "submit" &&
+          e.target.type !== "textarea" &&
+          e.target.tagName !== "BUTTON"
+        ) {
+          e.preventDefault();
+        }
+      });
+
+      // Inicializar el código de país con Perú por defecto
+      if (!countryCodeDisplay.value) {
+        countryCodeDisplay.value = "+51";
+      }
+    });
+  </script>
+</Layout>

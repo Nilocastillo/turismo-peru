@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
 import { lujo } from "@/consts/pageTitles";
+import Badge from "@/components/Badge.astro";
 
 const tours = (await getCollection("tours")).filter(
   (tour) => tour.data.category.toLowerCase() === "lujo",
@@ -14,14 +15,37 @@ const canonical = "https://turismoperu.com.pe/lujo";
 ---
 
 <Layout title={lujo} description={description} canonical={canonical}>
-  <main class="max-w-7xl mx-auto px-4 py-10 mt-32">
-    <h1
-      class="text-balance text-center text-5xl md:text-6xl lg:gap-20 lg:text-6xl tracking-tight mb-10"
+  <main class="max-w-7xl mx-auto px-4 py-10">
+    <header
+      class="max-w-2xl mx-auto pt-7 flex flex-col gap-5 mt-24 md:mt-48 mb-14"
     >
-      Experiencias de lujo en Perú
-    </h1>
+      <h1
+        class="text-balance text-center text-5xl md:text-7xl tracking-tight mb-4"
+      >
+        Experiencias de lujo en Perú
+      </h1>
+      <p class="text-lg text-pretty text-black mx-auto">
+        Disfruta experiencias exclusivas con hoteles cinco estrellas, trenes de
+        lujo y viajes premium a Machu Picchu y los destinos más selectos del
+        país.
+      </p>
+    </header>
+    <div
+      class="max-w-2xl mx-auto flex flex-wrap gap-x-5 gap-y-3 items-center justify-center mb-14"
+    >
+      <Badge>Tours de Lujo</Badge>
+      <Badge>Experiencia Exclusiva</Badge>
+      <Badge>Hoteles Premium</Badge>
+      <Badge>Tren Hiram Bingham</Badge>
+      <Badge>Gastronomía</Badge>
+      <Badge>Experiencia VIP</Badge>
+      <Badge>Suites y Confort</Badge>
+      <Badge>Viaje Privado</Badge>
+      <Badge>Servicios Exclusivos</Badge>
+      <Badge>Relax y Bienestar</Badge>
+    </div>
 
-    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    <section class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {
         tours.map((tour) => (
           <Card
@@ -34,6 +58,6 @@ const canonical = "https://turismoperu.com.pe/lujo";
           />
         ))
       }
-    </div>
+    </section>
   </main>
 </Layout>

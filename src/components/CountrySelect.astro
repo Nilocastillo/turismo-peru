@@ -1,0 +1,260 @@
+---
+// src/components/CountrySelect.astro
+import { countries } from "@/consts/countries";
+---
+
+<div class="relative max-w-full">
+  <label for="country-input" class="block font-semibold mb-2 text-gray-700">
+    País <span class="text-red-500">*</span>
+  </label>
+
+  <div class="relative">
+    <input
+      id="country-input"
+      name="country_display"
+      type="text"
+      autocomplete="off"
+      placeholder="Escribe para buscar tu país... (ej: Perú, México, España)"
+      required
+      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-all pr-10"
+      aria-autocomplete="list"
+      aria-controls="country-listbox"
+      aria-expanded="false"
+    />
+
+    <!-- Icono de búsqueda -->
+    <div
+      class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </div>
+
+    <!-- SUGERENCIAS -->
+    <ul
+      id="country-listbox"
+      role="listbox"
+      class="absolute z-50 mt-1 w-full bg-white border border-gray-300 rounded-xl max-h-60 overflow-auto shadow-lg hidden"
+    >
+      {
+        countries.map((c) => (
+          <li
+            role="option"
+            data-name={c.name}
+            data-code={c.code}
+            data-code-digits={c.code.replace(/\D/g, "")}
+            data-flag={c.flag}
+            class="px-4 py-3 hover:bg-blue-50 cursor-pointer flex items-center gap-3 transition-colors border-b border-gray-100 last:border-0"
+          >
+            <span class="text-2xl flex-shrink-0">{c.flag}</span>
+            <span class="flex-1 truncate font-medium text-gray-700">
+              {c.name}
+            </span>
+            <small class="text-gray-500 font-mono text-sm">{c.code}</small>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <!-- INPUTS OCULTOS (se envían con el form) -->
+  <input type="hidden" name="country" id="country-hidden" value="" required />
+  <input
+    type="hidden"
+    name="country_name"
+    id="country-name-hidden"
+    value=""
+    required
+  />
+
+  <p class="text-sm text-gray-500 mt-1">
+    Selecciona tu país para autocompletar el código telefónico
+  </p>
+</div>
+
+<script is:inline>
+  document.addEventListener("astro:page-load", () => {
+    const input = document.getElementById("country-input");
+    const list = document.getElementById("country-listbox");
+    const items = Array.from(list.querySelectorAll("li"));
+    const hidden = document.getElementById("country-hidden");
+    const hiddenName = document.getElementById("country-name-hidden");
+    const whatsappInput = document.getElementById("whatsapp");
+
+    let filtered = items;
+    let idx = -1;
+
+    const show = () => {
+      list.classList.remove("hidden");
+      input.setAttribute("aria-expanded", "true");
+    };
+
+    const hide = () => {
+      list.classList.add("hidden");
+      input.setAttribute("aria-expanded", "false");
+      idx = -1;
+      clearActive();
+    };
+
+    const clearActive = () =>
+      items.forEach((el) => el.classList.remove("bg-blue-50"));
+
+    function filter(q) {
+      const s = (q || "").trim().toLowerCase();
+
+      if (!s) {
+        // Si está vacío, mostrar todos al hacer focus
+        filtered = items;
+        items.forEach((it) => (it.style.display = ""));
+        return;
+      }
+
+      filtered = items.filter((it) => {
+        const name = it.dataset.name.toLowerCase();
+        const code = it.dataset.code.toLowerCase();
+        // Buscar tanto en nombre como en código
+        return name.includes(s) || code.includes(s);
+      });
+
+      items.forEach(
+        (it) => (it.style.display = filtered.includes(it) ? "" : "none"),
+      );
+
+      if (filtered.length) {
+        show();
+      } else {
+        hide();
+      }
+    }
+
+    // Click en item -> seleccionar
+    items.forEach((li) => {
+      li.addEventListener("click", () => {
+        const name = li.dataset.name;
+        const code = li.dataset.code;
+        const codeDigits = li.dataset.codeDigits;
+        const flag = li.dataset.flag;
+
+        // Mostrar en el input visible
+        input.value = `${flag} ${name} ${code}`;
+
+        // Guardar en campos ocultos
+        hidden.value = codeDigits; // para wa.me (sin + ni espacios)
+        hiddenName.value = name;
+
+        // Disparar evento change para que el formulario lo detecte
+        hidden.dispatchEvent(new Event("change", { bubbles: true }));
+
+        // Limpiar el campo de WhatsApp cuando se cambia de país
+        if (whatsappInput) {
+          whatsappInput.value = "";
+          whatsappInput.placeholder = `Ej: 987654321`;
+
+          // Guardar el código en data attribute
+          whatsappInput.dataset.countryCode = codeDigits;
+        }
+
+        hide();
+      });
+    });
+
+    // Eventos del input
+    input.addEventListener("input", (e) => {
+      // Limpiar selección si el usuario borra
+      if (!e.target.value.trim()) {
+        hidden.value = "";
+        hiddenName.value = "";
+      }
+      filter(e.target.value);
+    });
+
+    input.addEventListener("focus", () => {
+      filter(input.value);
+      if (filtered.length > 0) show();
+    });
+
+    input.addEventListener("blur", () => {
+      // Pequeño delay para permitir click en item
+      setTimeout(() => hide(), 200);
+    });
+
+    // Navegación con teclado
+    input.addEventListener("keydown", (e) => {
+      if (list.classList.contains("hidden")) return;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        idx = Math.min(idx + 1, filtered.length - 1);
+        clearActive();
+        const el = filtered[idx];
+        if (el) {
+          el.classList.add("bg-blue-50");
+          el.scrollIntoView({ block: "nearest" });
+        }
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        idx = Math.max(idx - 1, 0);
+        clearActive();
+        const el = filtered[idx];
+        if (el) {
+          el.classList.add("bg-blue-50");
+          el.scrollIntoView({ block: "nearest" });
+        }
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        const el = filtered[idx] >= 0 ? filtered[idx] : filtered[0];
+        if (el) el.click();
+      } else if (e.key === "Escape") {
+        hide();
+        input.blur();
+      }
+    });
+
+    // Inicializar con Perú por defecto si no hay selección
+    if (!hidden.value) {
+      const peruItem = items.find((item) => item.dataset.name === "Perú");
+      if (peruItem) {
+        // No hacer click automático, solo sugerir
+        input.placeholder =
+          "Escribe para buscar tu país... (ej: Perú, México, España)";
+      }
+    }
+  });
+</script>
+
+<style>
+  /* Scroll personalizado para la lista */
+  #country-listbox {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f7fafc;
+  }
+
+  #country-listbox::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #country-listbox::-webkit-scrollbar-track {
+    background: #f7fafc;
+    border-radius: 10px;
+  }
+
+  #country-listbox::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+  }
+
+  #country-listbox::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+  }
+</style>

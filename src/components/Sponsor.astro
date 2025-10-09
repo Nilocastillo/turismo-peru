@@ -1,0 +1,151 @@
+---
+import { Image } from "astro:assets";
+import Iso9001 from "@/assets/img-sponsor/iso9001.webp";
+import Iso14001 from "@/assets/img-sponsor/iso14001.webp";
+import Iata from "@/assets/img-sponsor/iata.webp";
+import MarcaPeru from "@/assets/img-sponsor/marcaperu.webp";
+import TripAdvisor from "@/assets/img-sponsor/tripadvisor.webp";
+import GobiernoRegional from "@/assets/img-sponsor/gobiernoregional.webp";
+import Gercetur from "@/assets/img-sponsor/gercetur.webp";
+import SafeTravels from "@/assets/img-sponsor/safetravels.webp";
+import TurismoResponsable from "@/assets/img-sponsor/turismoresponsable.webp";
+
+const sponsors = [
+  {
+    logo: Iso9001,
+    name: "InfoJobs",
+    alt: "Logo de InfoJobs",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: Iso14001,
+    name: "Cámbiate",
+    alt: "Logo de Cámbiate",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: Iata,
+    name: "Deeply",
+    alt: "Logo de Deeply",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: MarcaPeru,
+    name: "Latas",
+    alt: "Logo de Latas",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: TripAdvisor,
+    name: "Primark",
+    alt: "Logo de Primark",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: GobiernoRegional,
+    name: "Snatts",
+    alt: "Logo de Snatts",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: Gercetur,
+    name: "Tian",
+    alt: "Logo de Tian",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: SafeTravels,
+    name: "Tian",
+    alt: "Logo de Tian",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+  {
+    logo: TurismoResponsable,
+    name: "Tian",
+    alt: "Logo de Tian",
+    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
+  },
+];
+---
+
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="text-center mb-8">
+      <h2
+        class="text-2xl text-balance md:text-3xl lg:text-4xl font-bold text-center text-secondary"
+      >
+        Nuestras Certificaciones
+      </h2>
+    </div>
+    <div
+      class="mt-12 grid select-none grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 justify-items-center"
+    >
+      {
+        sponsors.map((sponsor) => (
+          <div class="company-link group relative flex h-32 w-32 items-center justify-center overflow-hidden md:h-48 md:w-48 px-4">
+            <Image
+              src={sponsor.logo}
+              alt={sponsor.alt}
+              class={`company-logo text-white transition group-hover:scale-110 group-focus:scale-105 duration-300`}
+              quality={95}
+              format="webp"
+              loading="lazy"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+<style>
+  /**.company-link {
+    background: linear-gradient(
+      to bottom,
+      rgba(229, 35, 48, 0.1) 0%,
+      transparent 100%
+    );
+    transition: all 0.5s ease;
+  }
+
+  .company-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: linear-gradient(
+      to bottom,
+      rgba(229, 35, 48, 0.2) 0%,
+      transparent
+    );
+    opacity: 0;
+    height: 50%;
+    transition:
+      opacity 0.2s ease-in-out,
+      height 0.2s ease-in-out;
+      }**/
+
+  @media (prefers-reduced-motion) {
+    .company-link::before {
+      transition: none;
+    }
+  }
+
+  .company-link:hover::before,
+  .company-link:focus::before {
+    opacity: 0.8;
+    height: 90%;
+    box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.75);
+  }
+
+  .company-link:hover .company-logo,
+  .company-link:focus .company-logo {
+    transform: scale(1.05);
+  }
+
+  @media (prefers-reduced-motion) {
+    .company-link:hover .company-logo,
+    .company-link:focus .company-logo {
+      transform: scale(1);
+    }
+  }
+</style>
