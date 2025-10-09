@@ -1,14 +1,12 @@
-name: Deploy to Namecheap via FTP
-
+name: Deploy to GoDaddy via FTP
 on:
   push:
     branches:
-      - main # o la rama que uses para producción
+      - main
 
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,11 +22,15 @@ jobs:
       - name: Build Astro project
         run: npm run build
 
-      - name: Deploy via FTP
+      - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: ftp.turismoperu.com.pe # Cambia esto por tu servidor FTP (ej: ftp.midominio.com)
+          server: ftp.turismoperu.com.pe
           username: ${{ secrets.FTP_USERNAME_TPC }}
           password: ${{ secrets.FTP_PASSWORD_TPC }}
-          local-dir: dist/ # Carpeta donde Astro genera el build final
-          server-dir: / # Carpeta remota donde quieres subir los archivos
+          protocol: ftps
+          port: 21
+          local-dir: ./dist/
+          server-dir: ./public_html/
+          timeout: 300000
+          security: loose # 👈 GoDaddy a veces requiere esto
