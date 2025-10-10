@@ -5,7 +5,6 @@ import Iso14001 from "@/assets/img-sponsor/iso14001.webp";
 import Iata from "@/assets/img-sponsor/iata.webp";
 import MarcaPeru from "@/assets/img-sponsor/marcaperu.webp";
 import TripAdvisor from "@/assets/img-sponsor/tripadvisor.webp";
-/** import GobiernoRegional from "@/assets/img-sponsor/gobiernoregional.webp";**/
 import Gercetur from "@/assets/img-sponsor/gercetur.webp";
 import SafeTravels from "@/assets/img-sponsor/safetravels.webp";
 import TurismoResponsable from "@/assets/img-sponsor/turismoresponsable.webp";
@@ -72,11 +71,11 @@ const sponsors = [
       </h2>
     </div>
     <div
-      class="mt-12 grid select-none grid-cols-2 md:grid-cols-3 gap-2 md:gap-8 justify-items-center"
+      class="mt-12 grid select-none grid-cols-2 md:grid-cols-4 gap-2 md:gap-8 justify-items-center"
     >
       {
         sponsors.map((sponsor) => (
-          <div class="company-link group relative flex h-32 w-32 items-center justify-center overflow-hidden md:h-48 md:w-48 px-4">
+          <div class="company-link group relative flex h-32 w-32 items-center justify-center overflow-hidden md:h-40 md:w-40 px-4">
             <Image
               src={sponsor.logo}
               alt={sponsor.alt}
@@ -92,32 +91,6 @@ const sponsors = [
   </div>
 </section>
 <style>
-  /**.company-link {
-    background: linear-gradient(
-      to bottom,
-      rgba(229, 35, 48, 0.1) 0%,
-      transparent 100%
-    );
-    transition: all 0.5s ease;
-  }
-
-  .company-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    display: block;
-    background: linear-gradient(
-      to bottom,
-      rgba(229, 35, 48, 0.2) 0%,
-      transparent
-    );
-    opacity: 0;
-    height: 50%;
-    transition:
-      opacity 0.2s ease-in-out,
-      height 0.2s ease-in-out;
-      }**/
-
   @media (prefers-reduced-motion) {
     .company-link::before {
       transition: none;

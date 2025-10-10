@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/Hero.astro";
 import CodigoEsna from "@/components/CodigoEsna.astro";
 import Sponsor from "@/components/Sponsor.astro";
+import Clientes from "@/components/Clientes.astro";
 
 import { getCollection } from "astro:content";
 import CulturalBento from "@/components/CulturalBento.astro";
@@ -20,7 +21,8 @@ export const prerender = true;
   canonical="https://www.turismoperu.com.pe/"
 >
   <Hero />
-  <section class="max-w-7xl mx-auto px-6 py-24">
+  <CodigoEsna />
+  <section class="max-w-7xl mx-auto px-6 py-12">
     <h2
       class="text-2xl text-balance md:text-3xl lg:text-4xl font-bold text-center text-secondary"
     >
@@ -29,5 +31,5 @@ export const prerender = true;
     <CulturalBento tours={culturalTours.slice(0, 5)} />
   </section>
   <Sponsor />
-  <CodigoEsna />
+  <Clientes />
 </Layout>
