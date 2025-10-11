@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-
 import GobiernoRegional from "@/assets/img-clientes/gobierno-regional-cusco.webp";
 import SedaCusco from "@/assets/img-clientes/sedacusco.webp";
 import UniversidadAndinaCusco from "@/assets/img-clientes/universidad-andina-cusco.webp";
@@ -70,7 +69,7 @@ const clientes = [
 
   <div class="slider-container">
     <div
-      class="slider-track flex gap-x-10 lg:gap-x-16 animate-scroll group-hover:[animation-play-state:paused]"
+      class="slider-track flex gap-x-6 md:gap-x-10 lg:gap-x-16 animate-scroll group-hover:[animation-play-state:paused]"
     >
       <!-- Primera copia de los logos -->
       {
@@ -81,7 +80,7 @@ const clientes = [
               alt={cliente.alt}
               width={200}
               height={200}
-              class="w-40 h-40 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              class="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               loading="lazy"
               decoding="async"
             />
@@ -98,7 +97,7 @@ const clientes = [
               alt={cliente.alt}
               width={200}
               height={200}
-              class="w-40 h-40 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              class="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               loading="lazy"
               decoding="async"
             />
@@ -119,7 +118,7 @@ const clientes = [
   .slider-track {
     display: flex;
     width: fit-content;
-    animation: scroll 20s linear infinite;
+    animation: scroll 30s linear infinite;
   }
 
   .slider-item {
@@ -144,10 +143,10 @@ const clientes = [
     animation-play-state: paused;
   }
 
-  /* Responsive: velocidad más lenta en móviles */
+  /* Responsive: ajustar tamaño y velocidad en móviles */
   @media (max-width: 768px) {
     .slider-track {
-      animation-duration: 20s;
+      animation-duration: 25s;
     }
   }
 </style>
