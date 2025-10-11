@@ -1,6 +1,6 @@
 ---
 const navItems = [
-  { text: "EASY MACHUPICCHU", href: "/easy-machupicchu" },
+  { text: "EASY MACHUPICCHU", href: "/easy-machupicchu", featured: true },
   { text: "AVENTURA", href: "/aventura" },
   { text: "CULTURAL", href: "/cultural" },
   { text: "LUJO", href: "/lujo" },
@@ -21,7 +21,11 @@ const navItems = [
         navItems.slice(0, 2).map((item) => (
           <a
             href={item.href.startsWith("/") ? item.href : `/${item.href}`}
-            class="text-base transition-all duration-300 py-1 px-4 pb-0.5 text-secondary hover:bg-primary rounded-full hover:text-white"
+            class={`text-base transition-all duration-300 py-1 px-4 pb-0.5 rounded-full ${
+              item.featured
+                ? "border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white shadow-md animate-pulse"
+                : "text-secondary hover:bg-primary hover:text-white"
+            }`}
           >
             {item.text}
           </a>
@@ -105,7 +109,11 @@ const navItems = [
         navItems.map((item) => (
           <a
             href={item.href}
-            class="block py-2 px-4 font-bebas tracking-wide text-lg text-center text-secondary hover:text-primary"
+            class={`block py-2 px-4 font-bebas tracking-wide text-lg text-center hover:text-primary ${
+              item.featured
+                ? "border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white shadow-md animate-pulse"
+                : "text-secondary hover:bg-primary hover:text-white"
+            }`}
           >
             {item.text}
           </a>
