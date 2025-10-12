@@ -67,58 +67,70 @@ const clientes = [
     </p>
   </div>
 
-  <div class="slider-container">
-    <div
-      class="slider-track flex gap-x-6 md:gap-x-10 lg:gap-x-16 animate-scroll group-hover:[animation-play-state:paused]"
-    >
-      <!-- Primera copia de los logos -->
-      {
-        clientes.map((cliente) => (
-          <div class="slider-item shrink-0">
-            <Image
-              src={cliente.logo}
-              alt={cliente.alt}
-              width={200}
-              height={200}
-              class="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        ))
-      }
+  <div class="slider-wrapper">
+    <div class="slider-container">
+      <!-- Primera copia -->
+      <div class="slider-track">
+        {
+          clientes.map((cliente) => (
+            <div class="slider-item">
+              <Image
+                src={cliente.logo}
+                alt={cliente.alt}
+                width={200}
+                height={200}
+                class="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          ))
+        }
+      </div>
 
-      <!-- Segunda copia para efecto infinito -->
-      {
-        clientes.map((cliente) => (
-          <div class="slider-item shrink-0">
-            <Image
-              src={cliente.logo}
-              alt={cliente.alt}
-              width={200}
-              height={200}
-              class="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        ))
-      }
+      <!-- Segunda copia (duplicado exacto) -->
+      <div class="slider-track" aria-hidden="true">
+        {
+          clientes.map((cliente) => (
+            <div class="slider-item">
+              <Image
+                src={cliente.logo}
+                alt={cliente.alt}
+                width={200}
+                height={200}
+                class="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .slider-container {
+  .slider-wrapper {
     width: 100%;
     overflow: hidden;
     position: relative;
   }
 
+  .slider-container {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scroll 35s linear infinite;
+  }
+
+  .slider-container:hover {
+    animation-play-state: paused;
+  }
+
   .slider-track {
     display: flex;
-    width: fit-content;
-    animation: scroll 30s linear infinite;
+    gap: 2rem;
   }
 
   .slider-item {
@@ -126,27 +138,36 @@ const clientes = [
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0.5rem;
   }
 
-  /* Animación del slider infinito */
   @keyframes scroll {
-    0% {
+    from {
       transform: translateX(0);
     }
-    100% {
+    to {
       transform: translateX(-50%);
     }
   }
 
-  /* Pausa la animación al hacer hover */
-  .slider-track:hover {
-    animation-play-state: paused;
+  /* Responsive */
+  @media (max-width: 640px) {
+    .slider-track {
+      gap: 1.5rem;
+    }
+
+    .slider-container {
+      animation-duration: 25s;
+    }
   }
 
-  /* Responsive: ajustar tamaño y velocidad en móviles */
-  @media (max-width: 768px) {
+  @media (min-width: 1024px) {
     .slider-track {
-      animation-duration: 25s;
+      gap: 3rem;
+    }
+
+    .slider-container {
+      animation-duration: 45s;
     }
   }
 </style>
