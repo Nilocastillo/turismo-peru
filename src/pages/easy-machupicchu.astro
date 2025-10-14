@@ -3,8 +3,8 @@ import Layout from "@/layouts/Layout.astro";
 import CountrySelect from "@/components/CountrySelect.astro";
 import { reservas } from "@/consts/pageTitles";
 
-const formAction = "https://formspree.io/f/abcxyz"; // reemplaza con tu URL real
-const whatsappAgency = "51950311111"; // tu número con código de país (51 = Perú)
+const formAction = "https://formspree.io/f/xkgqkwgj";
+const whatsappAgency = "51950311111";
 const description =
   "Reserva tu tren a Machu Picchu (Inca Rail o Perú Rail), elige tu circuito y asegura tu experiencia de forma rápida y segura.";
 const canonical = "https://turismoperu.com.pe/easy-machupicchu";
@@ -19,6 +19,40 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
       Completa el formulario para reservar tu tren, seleccionar tu circuito y
       recibir confirmación personalizada en tu correo o WhatsApp.
     </p>
+
+    <!-- Toast de notificaciones -->
+    <div
+      id="toast"
+      class="hidden fixed top-4 right-4 z-50 max-w-md w-full bg-white shadow-lg rounded-xl p-4 border-l-4 transition-all duration-300 transform translate-x-full"
+      role="alert"
+      aria-live="polite"
+    >
+      <div class="flex items-start gap-3">
+        <div id="toast-icon" class="flex-shrink-0"></div>
+        <div class="flex-1">
+          <h3 id="toast-title" class="font-semibold text-gray-900 mb-1"></h3>
+          <p id="toast-message" class="text-sm text-gray-600"></p>
+        </div>
+        <button
+          id="toast-close"
+          class="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="Cerrar notificación"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
 
     <form
       id="reservationForm"
@@ -148,7 +182,7 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
         </select>
       </div>
 
-      <!-- Mensaje adicional (opcional) -->
+      <!-- Mensaje adicional -->
       <div>
         <label for="message" class="block font-semibold mb-2 text-gray-700"
           >Mensaje adicional (opcional)</label
@@ -166,9 +200,11 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
       <div class="flex flex-col sm:flex-row gap-4 pt-4">
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+          id="submitBtn"
+          class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg
+            id="submitIcon"
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
             viewBox="0 0 20 20"
@@ -180,15 +216,16 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
             ></path>
           </svg>
-          Enviar solicitud
+          <span id="submitText">Enviar solicitud</span>
         </button>
 
         <button
           type="button"
           id="whatsappBtn"
-          class="w-full bg-green-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-green-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+          class="w-full bg-green-600 text-white font-semibold py-3 px-6 rounded-xl hover:bg-green-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg
+            id="whatsappIcon"
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
             viewBox="0 0 24 24"
@@ -198,7 +235,7 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
               d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
             ></path>
           </svg>
-          Enviar por WhatsApp
+          <span id="whatsappText">Enviar por WhatsApp</span>
         </button>
       </div>
 
@@ -211,13 +248,69 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
   <script is:inline define:vars={{ whatsappAgency }}>
     document.addEventListener("astro:page-load", () => {
       const form = document.getElementById("reservationForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const submitText = document.getElementById("submitText");
+      const submitIcon = document.getElementById("submitIcon");
       const whatsappBtn = document.getElementById("whatsappBtn");
+      const whatsappText = document.getElementById("whatsappText");
+      const whatsappIcon = document.getElementById("whatsappIcon");
       const trainSelect = document.getElementById("train");
       const serviceSelect = document.getElementById("service");
       const countryHidden = document.getElementById("country-hidden");
       const countryNameHidden = document.getElementById("country-name-hidden");
       const whatsappInput = document.getElementById("whatsapp");
       const countryCodeDisplay = document.getElementById("countryCodeDisplay");
+
+      // Sistema de notificaciones Toast
+      const toast = document.getElementById("toast");
+      const toastTitle = document.getElementById("toast-title");
+      const toastMessage = document.getElementById("toast-message");
+      const toastIcon = document.getElementById("toast-icon");
+      const toastClose = document.getElementById("toast-close");
+
+      function showToast(type, title, message) {
+        const icons = {
+          success: `<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>`,
+          error: `<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>`,
+          warning: `<svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>`,
+          info: `<svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>`,
+        };
+
+        const borderColors = {
+          success: "border-green-500",
+          error: "border-red-500",
+          warning: "border-yellow-500",
+          info: "border-blue-500",
+        };
+
+        toastIcon.innerHTML = icons[type];
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+
+        toast.className = `fixed top-4 right-4 z-50 max-w-md w-full bg-white shadow-lg rounded-xl p-4 border-l-4 transition-all duration-300 ${borderColors[type]}`;
+        toast.classList.remove("hidden", "translate-x-full");
+
+        setTimeout(() => {
+          hideToast();
+        }, 5000);
+      }
+
+      function hideToast() {
+        toast.classList.add("translate-x-full");
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 300);
+      }
+
+      toastClose.addEventListener("click", hideToast);
 
       // Servicios por compañía
       const services = {
@@ -235,7 +328,7 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
         ],
       };
 
-      // Observar cambios en el código de país (actualizado por CountrySelect)
+      // Observar cambios en el código de país
       const observer = new MutationObserver(() => {
         const code = countryHidden?.value || "51";
         countryCodeDisplay.value = `+${code}`;
@@ -244,13 +337,9 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
       if (countryHidden) {
         observer.observe(countryHidden, {
           attributes: true,
-          attributeOldValue: true,
-          characterData: true,
-          subtree: true,
-          childList: true,
+          attributeFilter: ["value"],
         });
 
-        // También escuchar cambios directos
         countryHidden.addEventListener("change", () => {
           const code = countryHidden.value || "51";
           countryCodeDisplay.value = `+${code}`;
@@ -287,129 +376,249 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
         e.preventDefault();
       });
 
-      // Solo permitir números en el campo de WhatsApp
+      // Solo permitir números en WhatsApp
       whatsappInput.addEventListener("input", (e) => {
         e.target.value = e.target.value.replace(/\D/g, "");
       });
 
-      // Validación y envío por WhatsApp
-      whatsappBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-
-        // Obtener valores
+      // Función de validación reutilizable
+      function validateForm() {
         const name = form.name.value.trim();
         const email = form.email.value.trim();
         const countryName = countryNameHidden?.value || "";
-        const countryCode = countryHidden?.value || "";
         const whatsapp = whatsappInput.value.trim();
         const train = form.train.value;
         const service = form.service.value;
         const circuit = form.circuit.value;
-        const message = form.message?.value.trim() || "";
 
-        // Validar campos requeridos
         if (!name) {
-          alert("⚠️ Por favor ingresa tu nombre completo.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor ingresa tu nombre completo.",
+          );
           form.name.focus();
-          return;
+          return false;
         }
 
         if (!email) {
-          alert("⚠️ Por favor ingresa tu correo electrónico.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor ingresa tu correo electrónico.",
+          );
           form.email.focus();
-          return;
+          return false;
         }
 
-        // Validar formato de email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-          alert("⚠️ Por favor ingresa un correo electrónico válido.");
+          showToast(
+            "error",
+            "Email inválido",
+            "Por favor ingresa un correo electrónico válido.",
+          );
           form.email.focus();
-          return;
+          return false;
         }
 
         if (!countryName) {
-          alert("⚠️ Por favor selecciona tu país.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor selecciona tu país.",
+          );
           document.getElementById("country-input")?.focus();
-          return;
+          return false;
         }
 
         if (!whatsapp) {
-          alert("⚠️ Por favor ingresa tu número de WhatsApp.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor ingresa tu número de WhatsApp.",
+          );
           whatsappInput.focus();
-          return;
+          return false;
         }
 
         if (whatsapp.length < 6) {
-          alert(
-            "⚠️ El número de WhatsApp parece ser muy corto. Por favor verifica.",
+          showToast(
+            "warning",
+            "Número corto",
+            "El número de WhatsApp parece ser muy corto. Por favor verifica.",
           );
           whatsappInput.focus();
-          return;
+          return false;
         }
 
         if (!train) {
-          alert("⚠️ Por favor selecciona la compañía de tren.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor selecciona la compañía de tren.",
+          );
           trainSelect.focus();
-          return;
+          return false;
         }
 
         if (!service) {
-          alert("⚠️ Por favor selecciona el servicio.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor selecciona el servicio.",
+          );
           serviceSelect.focus();
-          return;
+          return false;
         }
 
         if (!circuit) {
-          alert("⚠️ Por favor selecciona el circuito.");
+          showToast(
+            "warning",
+            "Campo requerido",
+            "Por favor selecciona el circuito.",
+          );
           form.circuit.focus();
-          return;
+          return false;
         }
 
-        // Construir número completo de WhatsApp
-        const fullWhatsappNumber = `${countryCode}${whatsapp}`;
+        return {
+          name,
+          email,
+          countryName,
+          countryCode: countryHidden?.value || "",
+          whatsapp,
+          train,
+          service,
+          circuit,
+          message: form.message?.value.trim() || "",
+        };
+      }
 
-        // Construir mensaje para WhatsApp
-        let whatsappMessage = `Hola 👋 soy *${name}*\nDeseo reservar un viaje a Machu Picchu.\n\n`;
-        whatsappMessage += `📧 *Email:* ${email}\n`;
-        whatsappMessage += `🌍 *País:* ${countryName}\n`;
-        whatsappMessage += `📱 *WhatsApp:* +${fullWhatsappNumber}\n`;
-        whatsappMessage += `🚆 *Tren:* ${train}\n`;
-        whatsappMessage += `💺 *Servicio:* ${service}\n`;
-        whatsappMessage += `🗺️ *Circuito:* ${circuit}\n`;
+      // Envío por WhatsApp con manejo de errores
+      whatsappBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
 
-        if (message) {
-          whatsappMessage += `\n💬 *Mensaje adicional:*\n${message}\n`;
+        const data = validateForm();
+        if (!data) return;
+
+        try {
+          // Deshabilitar botón
+          whatsappBtn.disabled = true;
+          whatsappIcon.innerHTML = `<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>`;
+          whatsappText.textContent = "Preparando mensaje...";
+
+          const fullWhatsappNumber = `${data.countryCode}${data.whatsapp}`;
+          let whatsappMessage = `Hola 👋 soy *${data.name}*\nDeseo reservar un viaje a Machu Picchu.\n\n`;
+          whatsappMessage += `📧 *Email:* ${data.email}\n`;
+          whatsappMessage += `🌍 *País:* ${data.countryName}\n`;
+          whatsappMessage += `📱 *WhatsApp:* +${fullWhatsappNumber}\n`;
+          whatsappMessage += `🚆 *Tren:* ${data.train}\n`;
+          whatsappMessage += `💺 *Servicio:* ${data.service}\n`;
+          whatsappMessage += `🗺️ *Circuito:* ${data.circuit}\n`;
+
+          if (data.message) {
+            whatsappMessage += `\n💬 *Mensaje adicional:*\n${data.message}\n`;
+          }
+
+          whatsappMessage += `\nPor favor, confírmame disponibilidad y precios. ¡Gracias!`;
+
+          const encodedMessage = encodeURIComponent(whatsappMessage);
+          const waUrl = `https://wa.me/${whatsappAgency}?text=${encodedMessage}`;
+
+          // Simular pequeño delay para mejor UX
+          await new Promise((resolve) => setTimeout(resolve, 500));
+
+          window.open(waUrl, "_blank");
+
+          showToast(
+            "success",
+            "WhatsApp abierto",
+            "Se ha abierto WhatsApp con tu mensaje. Si no se abrió automáticamente, verifica que tengas WhatsApp instalado.",
+          );
+
+          whatsappIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+          </svg>`;
+          whatsappText.textContent = "Enviar por WhatsApp";
+        } finally {
+          whatsappBtn.disabled = false;
         }
-
-        whatsappMessage += `\nPor favor, confírmame disponibilidad y precios. ¡Gracias!`;
-
-        const encodedMessage = encodeURIComponent(whatsappMessage);
-        const waUrl = `https://wa.me/${whatsappAgency}?text=${encodedMessage}`;
-
-        // Abrir WhatsApp en nueva pestaña
-        window.open(waUrl, "_blank");
       });
 
-      // Manejar envío del formulario normal (al servicio)
-      form.addEventListener("submit", (e) => {
-        // El formulario se enviará normalmente a la URL de action (formspree)
-        // Podemos agregar validaciones adicionales aquí si es necesario
-        const countryName = countryNameHidden?.value;
-        const countryCode = countryHidden?.value;
-        const whatsapp = whatsappInput.value.trim();
+      // Envío del formulario a Formspree con manejo de errores
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-        if (countryName && countryCode && whatsapp) {
-          // Crear un campo oculto con el número completo para enviar
+        const data = validateForm();
+        if (!data) return;
+
+        try {
+          // Deshabilitar botón
+          submitBtn.disabled = true;
+          submitIcon.innerHTML = `<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>`;
+          submitText.textContent = "Enviando...";
+
+          // Crear campo oculto con número completo
           const fullNumber = document.createElement("input");
           fullNumber.type = "hidden";
           fullNumber.name = "whatsapp_full";
-          fullNumber.value = `+${countryCode} ${whatsapp}`;
+          fullNumber.value = `+${data.countryCode} ${data.whatsapp}`;
           form.appendChild(fullNumber);
+
+          // Enviar formulario
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+              Accept: "application/json",
+            },
+          });
+
+          if (response.ok) {
+            showToast(
+              "success",
+              "¡Reserva enviada!",
+              "Tu solicitud ha sido enviada exitosamente. Te contactaremos pronto a tu correo o WhatsApp.",
+            );
+
+            // Limpiar formulario
+            form.reset();
+            serviceSelect.disabled = true;
+            serviceSelect.innerHTML =
+              '<option value="">Primero selecciona una compañía...</option>';
+
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Error al enviar el formulario");
+          }
+        } catch (error) {
+          showToast(
+            "error",
+            "Error al enviar",
+            error.message ||
+              "Hubo un problema al enviar tu reserva. Por favor intenta nuevamente o usa el botón de WhatsApp.",
+          );
+        } finally {
+          submitBtn.disabled = false;
+          submitIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+          </svg>`;
+          submitText.textContent = "Enviar solicitud";
         }
       });
 
-      // Prevenir envío del formulario si se presiona Enter en campos de texto
+      // Prevenir envío con Enter en campos de texto
       form.addEventListener("keypress", (e) => {
         if (
           e.key === "Enter" &&
@@ -421,7 +630,7 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
         }
       });
 
-      // Inicializar el código de país con Perú por defecto
+      // Inicializar código de país
       if (!countryCodeDisplay.value) {
         countryCodeDisplay.value = "+51";
       }
