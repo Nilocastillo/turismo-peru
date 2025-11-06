@@ -1,12 +1,54 @@
 ---
-const { className = "" } = Astro.props; // opcional para estilos extra
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
 ---
 
 <div
-  class={` bg-white text-secondary border border-primary/20 flex gap-2 items-center max-w-max px-4 py-2 rounded-full text-sm ${className}`}
+  class:list={"group relative inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 overflow-hidden bg-white/80 backdrop-blur-sm text-secondary border border-secondary/10 hover:border-primary/30 hover:bg-white hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5"}
 >
-  <div class="bg-primary aspect-square w-2 h-2 rounded-full"></div>
+  <!-- Efecto de brillo sutil en hover -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none"
+  >
+  </div>
 
-  <slot />
-  <!-- Aquí va el texto dinámico -->
+  <!-- Punto decorativo con animación -->
+  <div class="relative z-10 flex items-center justify-center">
+    <div class="w-2 h-2 bg-primary rounded-full"></div>
+    <div
+      class="absolute w-2 h-2 bg-primary rounded-full animate-ping opacity-75"
+    >
+    </div>
+  </div>
+
+  <!-- Contenido del badge -->
+  <span class="relative z-10 whitespace-nowrap">
+    <slot />
+  </span>
+
+  <!-- Icono de flecha que aparece en hover (opcional) -->
+  <svg
+    class="relative z-10 w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M9 5l7 7-7 7"></path>
+  </svg>
 </div>
+
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    .group * {
+      animation: none;
+      transition: none;
+    }
+  }
+</style>
