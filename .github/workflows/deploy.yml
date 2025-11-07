@@ -13,23 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
-        run: npm install
+        run: bun install
 
       - name: Build Astro project
-        run: npm run build
+        run: bun run build
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: ftp.turismoperu.com.pe # Cambia esto por tu servidor FTP (ej: ftp.midominio.com)
+          server: ftp.turismoperu.com.pe
           username: ${{ secrets.FTP_USERNAME_TPC }}
           password: ${{ secrets.FTP_PASSWORD_TPC }}
-          local-dir: dist/ # Carpeta donde Astro genera el build final
-          server-dir: / # Carpeta remota donde quieres subir los archivos
+          local-dir: dist/
+          server-dir: /
           security: loose
