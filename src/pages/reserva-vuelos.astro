@@ -5,7 +5,7 @@ import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout>
-  <div class="max-w-3xl mx-auto px-4 py-10 mt-24 md:mt-48">
+  <div class="max-w-5xl mx-auto px-4 py-10 mt-24 md:mt-48">
     <div class="max-w-5xl mx-auto">
       <!-- Header -->
       <div class="mb-8">
@@ -50,29 +50,6 @@ import Layout from "@/layouts/Layout.astro";
                 >
               </label>
             </div>
-
-            <!-- Action Buttons -->
-            <div class="flex gap-2">
-              <button
-                type="button"
-                id="swap-btn"
-                class="w-10 h-10 rounded-full border-2 border-red-500 bg-white hover:bg-red-50 flex items-center justify-center transition"
-                title="Intercambiar origen y destino"
-              >
-                <svg
-                  class="w-5 h-5 text-red-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
-                </svg>
-              </button>
-            </div>
           </div>
 
           <!-- Message -->
@@ -80,7 +57,7 @@ import Layout from "@/layouts/Layout.astro";
 
           <!-- Origin & Destination -->
           <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-4 bg-slate-50 p-6 rounded-2xl border-2 border-slate-200"
+            class="flex-col items-center gap-4 bg-slate-50 p-6 rounded-2xl border-2 border-slate-200"
           >
             <!-- Origen -->
             <div>
@@ -131,6 +108,28 @@ import Layout from "@/layouts/Layout.astro";
                   >Pisco (PIO) - Cap. FAP Renán Elías Olivera</option
                 >
               </select>
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex gap-2 items-center justify-center py-4">
+              <button
+                type="button"
+                id="swap-btn"
+                class="w-10 h-10 rounded-full border-2 border-red-500 bg-white hover:bg-red-50 flex items-center justify-center transition"
+                title="Intercambiar origen y destino"
+              >
+                <svg
+                  class="w-5 h-5 text-red-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                </svg>
+              </button>
             </div>
 
             <!-- Destino -->
@@ -186,7 +185,7 @@ import Layout from "@/layouts/Layout.astro";
           </div>
 
           <!-- Dates & Cabin -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <!-- Departure Date -->
             <div>
               <label
@@ -219,26 +218,9 @@ import Layout from "@/layouts/Layout.astro";
                 />
               </div>
             </div>
-
-            <!-- Cabin Class -->
-            <div>
-              <label
-                class="block text-xs font-bold text-slate-600 uppercase mb-2"
-                >Cabina</label
-              >
-              <select
-                id="cabin"
-                name="cabin"
-                class="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-xl text-slate-800 font-medium focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 appearance-none"
-              >
-                <option value="economy" selected>Economy</option>
-                <option value="premium-economy">Premium Economy</option>
-                <option value="business">Business</option>
-              </select>
-            </div>
           </div>
 
-          <!-- Passengers & Promo Code -->
+          <!-- Passengers -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <!-- Passengers Dropdown -->
             <div class="relative">
@@ -393,41 +375,62 @@ import Layout from "@/layouts/Layout.astro";
                 </button>
               </div>
             </div>
-            <!-- Action Buttons -->
-            <div
-              class="pt-6 border-t-2 border-slate-200 mt-8 flex flex-col sm:flex-row gap-3"
-            >
-              <button
-                type="submit"
-                class="flex-1 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            <!-- Cabin Class -->
+            <div>
+              <label
+                class="block text-xs font-bold text-slate-600 uppercase mb-2"
+                >Cabina</label
               >
-                <svg
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                Buscar Vuelos
-              </button>
-              <button
-                type="button"
-                id="whatsapp-btn"
-                class="flex-1 px-6 py-3 bg-green-400 text-white font-bold rounded-xl hover:bg-green-600 transition shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+              <select
+                id="cabin"
+                name="cabin"
+                class="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-xl text-slate-800 font-medium focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 appearance-none"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.272-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-5.031 1.378l-.361.214-3.741-.982.998 3.645-.235.364a9.864 9.864 0 001.516 5.394c1.487 2.386 3.875 3.866 6.25 3.866 1.493 0 2.909-.356 4.158-1.034l.328-.156 3.861 1.012-1.04-3.772.213-.338a9.868 9.868 0 001.438-5.666c0-5.44-4.43-9.867-9.88-9.867Z"
-                  ></path>
-                </svg>
-                Solicitar por WhatsApp
-              </button>
+                <option value="economy" selected>Economy</option>
+                <option value="premium-economy">Premium Economy</option>
+                <option value="business">Business</option>
+              </select>
             </div>
+          </div>
+          <!-- Action Buttons -->
+          <div
+            class="pt-6 border-t-2 border-slate-200 mt-8 flex flex-col sm:flex-row gap-3"
+          >
+            <button
+              type="submit"
+              class="flex-1 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              Reservar Vuelo
+            </button>
+            <button
+              type="button"
+              id="whatsapp-btn"
+              class="flex-1 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.52 3.48A11.84 11.84 0 0012 0C5.37 0 0 5.37 0 12c0 2.12.55 4.1 1.52 5.88L0 24l6.24-1.56A11.88 11.88 0 0012 24c6.63 0 12-5.37 12-12 0-3.18-1.24-6.18-3.48-8.52zm-8.52 17.52a9.87 9.87 0 01-5.16-1.44l-.36-.21-3.72.93.99-3.63-.24-.36a9.84 9.84 0 0115.48-11.88 9.84 9.84 0 01-6.99 16.59zm5.04-7.92c-.27-.14-1.62-.81-1.86-.9-.24-.09-.42-.14-.6.14s-.69.9-.84 1.08c-.15.18-.3.21-.57.07-.27-.14-1.14-.42-2.16-1.32-.8-.71-1.34-1.59-1.5-1.86-.15-.27-.02-.42.12-.56.12-.12.27-.3.42-.45.15-.15.2-.27.3-.45.09-.18.05-.34-.02-.48-.07-.14-.6-1.44-.82-1.96-.22-.51-.44-.44-.6-.45-.15 0-.33-.02-.51-.02s-.48.07-.73.36c-.24.29-.96.94-.96 2.28 0 1.34.99 2.64 1.13 2.82.14.18 1.94 2.96 4.7 4.15.66.28 1.18.45 1.58.58.66.21 1.26.18 1.74.11.53-.08 1.62-.66 1.85-1.29.22-.63.22-1.17.15-1.29-.07-.12-.24-.18-.51-.32z"
+                ></path>
+              </svg>
+              Solicitar vuelo por WhatsApp
+            </button>
           </div>
         </form>
       </div>
