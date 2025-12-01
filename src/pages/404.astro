@@ -1,0 +1,24 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="404 - Página no encontrada">
+  <main
+    class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4"
+  >
+    <h1 class="text-9xl font-bold text-primary mb-4">404</h1>
+    <h2 class="text-3xl md:text-4xl font-bold text-secondary mb-6">
+      ¡Ups! Página no encontrada
+    </h2>
+    <p class="text-lg text-gray-600 max-w-lg mb-8">
+      Lo sentimos, la página que estás buscando no existe o ha sido movida. Pero
+      no te preocupes, ¡tu aventura en Perú aún puede continuar!
+    </p>
+    <a
+      href="/"
+      class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white bg-primary rounded-full hover:bg-primary/90 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+    >
+      Volver al Inicio
+    </a>
+  </main>
+</Layout>

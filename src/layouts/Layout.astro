@@ -5,6 +5,7 @@ import "@fontsource-variable/outfit";
 
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import Schema from "@/components/Schema.astro";
 
 interface Props {
   title?: string;
@@ -59,6 +60,28 @@ const pageTitle = title ? `${title}` : fixedTitle;
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+
+    <link rel="manifest" href="/manifest.json" />
+    <Schema
+      data={{
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        name: siteName,
+        image: ogImage,
+        description: description,
+        url: canonical,
+        telephone: "+51984209980",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress:
+            "Calle Ollantaytambo D-11, Oficina 100 Edificio Atenas, Urbanización Manuel Prado",
+          addressLocality: "Cusco",
+          addressRegion: "Cusco",
+          postalCode: "08000",
+          addressCountry: "PE",
+        },
+      }}
+    />
     <ClientRouter />
   </head>
   <body>

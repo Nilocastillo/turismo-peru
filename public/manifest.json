@@ -1,0 +1,16 @@
+{
+  "name": "Turismo Perú Consultores",
+  "short_name": "Turismo Perú",
+  "description": "Agencia de viajes en Perú con experiencias auténticas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
