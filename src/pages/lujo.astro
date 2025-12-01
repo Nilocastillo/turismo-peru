@@ -3,10 +3,9 @@ import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
 import { lujo } from "@/consts/pageTitles";
-import Badge from "@/components/Badge.astro";
 
 const tours = (await getCollection("tours")).filter(
-  (tour) => tour.data.category.toLowerCase() === "lujo",
+  (tour) => tour.data.category.toLowerCase() === "lujo"
 );
 
 const description =
@@ -25,26 +24,12 @@ const canonical = "https://turismoperu.com.pe/lujo";
         Experiencias de lujo en Perú
       </h1>
       <p class="text-lg text-pretty text-black mx-auto">
-        Disfruta experiencias exclusivas con hoteles cinco estrellas, trenes de
-        lujo y viajes premium a Machu Picchu y los destinos más selectos del
-        país.
+        Disfruta de Tours de Lujo, Experiencia Exclusiva, Hoteles Premium, el
+        Tren Hiram Bingham, Gastronomía de primer nivel, Experiencia VIP, Suites
+        y Confort, Viaje Privado, Servicios Exclusivos y total Relax y
+        Bienestar.
       </p>
     </header>
-    <div
-      class="max-w-2xl mx-auto flex flex-wrap gap-x-5 gap-y-3 items-center justify-center mb-14"
-    >
-      <Badge>Tours de Lujo</Badge>
-      <Badge>Experiencia Exclusiva</Badge>
-      <Badge>Hoteles Premium</Badge>
-      <Badge>Tren Hiram Bingham</Badge>
-      <Badge>Gastronomía</Badge>
-      <Badge>Experiencia VIP</Badge>
-      <Badge>Suites y Confort</Badge>
-      <Badge>Viaje Privado</Badge>
-      <Badge>Servicios Exclusivos</Badge>
-      <Badge>Relax y Bienestar</Badge>
-    </div>
-
     <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {
         tours.map((tour) => (

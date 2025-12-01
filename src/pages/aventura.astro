@@ -2,12 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
-import Badge from "@/components/Badge.astro";
 
 import { aventura } from "@/consts/pageTitles";
 
 const tours = (await getCollection("tours")).filter(
-  (tour) => tour.data.category.toLowerCase() === "aventura",
+  (tour) => tour.data.category.toLowerCase() === "aventura"
 );
 
 const description =
@@ -26,25 +25,12 @@ const canonical = "https://turismoperu.com.pe/aventura";
         Experiencias de Aventura en Perú
       </h1>
       <p class="text-lg text-pretty text-black mx-auto">
-        Vive la emoción del Perú más extremo con caminatas, ciclismo, rafting y
-        experiencias llenas de adrenalina en paisajes naturales únicos.
+        Ofrecemos una amplia variedad de experiencias como Tours de Aventura,
+        Trekking en Perú, Senderismo en los Andes, Rafting y Kayak, Ciclismo,
+        Excursiones de Aventura, Rutas en Valle Sagrado, Aventura Extrema,
+        Eco-Aventura y la oportunidad de Explorar Machu Picchu.
       </p>
     </header>
-    <div
-      class="max-w-2xl mx-auto flex flex-wrap gap-x-5 gap-y-3 items-center justify-center mb-14"
-    >
-      <Badge>Tours de Aventura</Badge>
-      <Badge>Trekking en Perú</Badge>
-      <Badge>Senderismo en los Andes</Badge>
-      <Badge>Rafting y Kayak</Badge>
-      <Badge>Ciclismo</Badge>
-      <Badge>Excursiones de Aventura</Badge>
-      <Badge>Rutas en Valle Sagrado</Badge>
-      <Badge>Aventura Extrema</Badge>
-      <Badge>Eco-Aventura</Badge>
-      <Badge>Explora Machu Picchu</Badge>
-    </div>
-
     <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {
         tours.map((tour) => (
