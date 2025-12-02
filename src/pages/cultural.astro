@@ -29,7 +29,10 @@ const canonical = "https://turismoperu.com.pe/cultural";
         Vivas, Festividades Locales y la impresionante Arquitectura Colonial.
       </p>
     </header>
-    <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <section
+      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+      aria-label="Tours Culturales"
+    >
       {
         tours.map((tour) => (
           <Card
