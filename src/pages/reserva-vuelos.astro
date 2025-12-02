@@ -459,18 +459,18 @@ import Layout from "@/layouts/Layout.astro";
       <script is:inline>
         // (Your existing JavaScript code remains exactly the same)
         const tripTypeInputs = document.querySelectorAll(
-          'input[name="tripType"]',
+          'input[name="tripType"]'
         );
         const returnDateInput = document.getElementById("returnDate");
         const returnDateContainer = document.getElementById(
-          "returnDateContainer",
+          "returnDateContainer"
         );
         const swapBtn = document.getElementById("swap-btn");
         const originSelect = document.getElementById("origin");
         const destinationSelect = document.getElementById("destination");
         const passengersTrigger = document.getElementById("passengers-trigger");
         const passengersDropdown = document.getElementById(
-          "passengers-dropdown",
+          "passengers-dropdown"
         );
         const passengersApply = document.getElementById("passengers-apply");
         const passengersDisplay = document.getElementById("passengers-display");
@@ -501,9 +501,7 @@ import Layout from "@/layouts/Layout.astro";
               btn.disabled =
                 target === "adults" ? currentCount <= 1 : currentCount <= 0;
             } else if (action === "increase") {
-              if (target === "children" || target === "infants") {
-                btn.disabled = currentCount >= adults;
-              }
+              // No limits based on adults
             }
           });
         }
@@ -578,7 +576,8 @@ import Layout from "@/layouts/Layout.astro";
             if (action === "increase") {
               if (
                 target === "adults" ||
-                passengerCounts[target] < passengerCounts.adults
+                target === "children" ||
+                target === "infants"
               ) {
                 passengerCounts[target]++;
               }
@@ -587,20 +586,8 @@ import Layout from "@/layouts/Layout.astro";
                 passengerCounts[target]--;
               } else if (target === "adults" && passengerCounts[target] > 1) {
                 passengerCounts[target]--;
-                if (passengerCounts.children > passengerCounts.adults) {
-                  passengerCounts.children = passengerCounts.adults;
-                  document.getElementById("children-count").textContent =
-                    passengerCounts.children.toString();
-                  document.getElementById("children-input").value =
-                    passengerCounts.children.toString();
-                }
-                if (passengerCounts.infants > passengerCounts.adults) {
-                  passengerCounts.infants = passengerCounts.adults;
-                  document.getElementById("infants-count").textContent =
-                    passengerCounts.infants.toString();
-                  document.getElementById("infants-input").value =
-                    passengerCounts.infants.toString();
-                }
+              } else if (target === "adults" && passengerCounts[target] > 1) {
+                passengerCounts[target]--;
               }
             }
 
@@ -644,7 +631,7 @@ import Layout from "@/layouts/Layout.astro";
                 method: "POST",
                 body: formData,
                 headers: { Accept: "application/json" },
-              },
+              }
             );
             if (response.ok) {
               if (formMessage) {
@@ -717,7 +704,7 @@ import Layout from "@/layouts/Layout.astro";
               const dateObj = new Date(
                 dateParts[0],
                 dateParts[1] - 1,
-                dateParts[2],
+                dateParts[2]
               );
               return dateObj.toLocaleDateString("es-PE", {
                 day: "numeric",
