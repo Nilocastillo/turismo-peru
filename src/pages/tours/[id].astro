@@ -45,11 +45,12 @@ export const prerender = true;
           <Image
             src={image}
             alt={alt}
-            layout="full-width"
+            widths={[640, 1024, 1440, 1920]}
+            sizes="100vw"
             class="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
             decoding="async"
-            priority
+            loading="eager"
+            fetchpriority="high"
           />
         )
       }

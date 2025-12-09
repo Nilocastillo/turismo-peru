@@ -79,10 +79,14 @@ const sponsors = [
             <Image
               src={sponsor.logo}
               alt={sponsor.alt}
+              widths={[128, 160, 192]}
+              sizes="(min-width: 768px) 160px, 128px"
               class={`company-logo text-white transition group-hover:scale-110 group-focus:scale-105 duration-300`}
               quality={95}
               format="webp"
+              decoding="async"
               loading="lazy"
+              fetchpriority="low"
             />
           </div>
         ))
