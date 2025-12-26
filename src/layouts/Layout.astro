@@ -4,6 +4,7 @@ import "@/styles/global.css";
 import "@fontsource-variable/outfit";
 
 import Header from "@/components/Header.astro";
+import WhatsAppFooter from "@/components/WhatsAppFooter.astro";
 import Footer from "@/components/Footer.astro";
 import Schema from "@/components/Schema.astro";
 
@@ -87,6 +88,7 @@ const pageTitle = title ? `${title}` : fixedTitle;
   <body>
     <Header />
     <slot />
+    <WhatsAppFooter />
     <Footer />
     <script>
       let snowInterval: ReturnType<typeof setInterval> | null = null;
