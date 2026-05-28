@@ -103,8 +103,9 @@ const navItems = [
 
   <!-- Mobile menu -->
   <div
-    class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0"
+    class="md:hidden overflow-hidden"
     id="mobile-menu"
+    data-open="false"
   >
     <div class="px-6 pb-6 pt-2 space-y-2 bg-white/95 backdrop-blur-lg">
       {
@@ -168,13 +169,23 @@ const navItems = [
   .hamburger-open span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
   }
+
+  /* Mobile menu open/close */
+  #mobile-menu {
+    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  #mobile-menu[data-open="true"] {
+    max-height: 400px;
+  }
 </style>
 
 <script>
   let ac: AbortController | null = null;
 
-  document.addEventListener("astro:page-load", () => {
-    // Cleanup ALL previous listeners from last navigation
+  const initHeader = () => {
+    // Cleanup previous listeners if the initializer runs more than once
     if (ac) ac.abort();
     ac = new AbortController();
     const { signal } = ac;
@@ -195,7 +206,7 @@ const navItems = [
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true, signal });
-    handleScroll(); // ← INIT: set correct state immediately
+    handleScroll();
 
     // === Mobile menu toggle ===
     if (menuButton && mobileMenu && hamburgerIcon) {
@@ -203,16 +214,14 @@ const navItems = [
         "click",
         (e) => {
           e.stopPropagation();
-          const isOpen = mobileMenu.classList.contains("max-h-0");
+          const isOpen = mobileMenu.getAttribute("data-open") === "true";
 
-          if (isOpen) {
-            mobileMenu.classList.remove("max-h-0");
-            mobileMenu.classList.add("max-h-96");
+          if (!isOpen) {
+            mobileMenu.setAttribute("data-open", "true");
             hamburgerIcon.classList.add("hamburger-open");
             menuButton.setAttribute("aria-expanded", "true");
           } else {
-            mobileMenu.classList.remove("max-h-96");
-            mobileMenu.classList.add("max-h-0");
+            mobileMenu.setAttribute("data-open", "false");
             hamburgerIcon.classList.remove("hamburger-open");
             menuButton.setAttribute("aria-expanded", "false");
           }
@@ -229,9 +238,8 @@ const navItems = [
             (menuButton?.contains(target) ?? false) ||
             (mobileMenu?.contains(target) ?? false);
 
-          if (!mobileMenu?.classList.contains("max-h-0") && !isClickInside) {
-            mobileMenu?.classList.remove("max-h-96");
-            mobileMenu?.classList.add("max-h-0");
+          if (mobileMenu?.getAttribute("data-open") === "true" && !isClickInside) {
+            mobileMenu?.setAttribute("data-open", "false");
             hamburgerIcon?.classList.remove("hamburger-open");
             menuButton?.setAttribute("aria-expanded", "false");
           }
@@ -242,9 +250,8 @@ const navItems = [
       // Close mobile menu on navigation (link click)
       const closeMenu = () => {
         if (!mobileMenu || !menuButton || !hamburgerIcon) return;
-        if (mobileMenu.classList.contains("max-h-0")) return;
-        mobileMenu.classList.remove("max-h-96");
-        mobileMenu.classList.add("max-h-0");
+        if (mobileMenu.getAttribute("data-open") !== "true") return;
+        mobileMenu.setAttribute("data-open", "false");
         hamburgerIcon.classList.remove("hamburger-open");
         menuButton.setAttribute("aria-expanded", "false");
       };
@@ -255,5 +262,11 @@ const navItems = [
 
       window.addEventListener("hashchange", closeMenu, { signal });
     }
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeader, { once: true });
+  } else {
+    initHeader();
+  }
 </script>

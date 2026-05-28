@@ -244,7 +244,7 @@ const canonical = "https://www.turismoperu.com.pe/easy-machupicchu";
   </main>
 
   <script>
-    document.addEventListener("astro:page-load", () => {
+    const initEasyMachupicchuForm = () => {
       const form = document.getElementById("reservationForm");
       const submitBtn = document.getElementById("submitBtn");
       const submitText = document.getElementById("submitText");
@@ -633,6 +633,12 @@ const canonical = "https://www.turismoperu.com.pe/easy-machupicchu";
       if (!countryCodeDisplay.value) {
         countryCodeDisplay.value = "+51";
       }
-    });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initEasyMachupicchuForm, { once: true });
+    } else {
+      initEasyMachupicchuForm();
+    }
   </script>
 </Layout>

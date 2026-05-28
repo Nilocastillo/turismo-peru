@@ -101,7 +101,7 @@ export const prerender = true;
 <script>
   let ac: AbortController | null = null;
 
-  document.addEventListener("astro:page-load", () => {
+  const initTourHero = () => {
     if (ac) ac.abort();
     ac = new AbortController();
     const { signal } = ac;
@@ -121,5 +121,11 @@ export const prerender = true;
 
     window.addEventListener("scroll", handleScroll, { passive: true, signal });
     handleScroll();
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTourHero, { once: true });
+  } else {
+    initTourHero();
+  }
 </script>

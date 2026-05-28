@@ -84,7 +84,7 @@ import { countries } from "@/consts/countries";
 </div>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
+  const initCountrySelect = () => {
     const input = document.getElementById("country-input");
     const list = document.getElementById("country-listbox");
     const items = Array.from(list.querySelectorAll("li"));
@@ -230,7 +230,13 @@ import { countries } from "@/consts/countries";
           "Escribe para buscar tu país... (ej: Perú, México, España)";
       }
     }
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCountrySelect, { once: true });
+  } else {
+    initCountrySelect();
+  }
 </script>
 
 <style>

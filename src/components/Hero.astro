@@ -1,4 +1,4 @@
-<section class="relative h-[100dvh] w-full overflow-hidden">
+<section class="relative h-[100svh] w-full overflow-hidden">
   <video
     autoplay
     loop
@@ -120,7 +120,7 @@
 </style>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
+  const initHeroVideo = () => {
     const firstVideo = document.querySelector(
       "#main-video"
     ) as HTMLMediaElement;
@@ -135,5 +135,11 @@
         firstVideo.style.opacity = "1";
       });
     }
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initHeroVideo, { once: true });
+  } else {
+    initHeroVideo();
+  }
 </script>

@@ -6,8 +6,21 @@
   --color-primary-accessible: #c41e2a;
   --color-secondary: #0d1725;
 }
+
+/* Prevent horizontal scroll on mobile — clip is stronger than hidden
+   and does NOT create a new scroll container (no sticky issues) */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Outfit Variable", sans-serif;
 }
 
 :target {
@@ -17,10 +30,6 @@ html {
 :focus {
   scroll-margin-top: 100px;
   scroll-margin-bottom: 60px;
-}
-
-body {
-  font-family: "Outfit Variable", sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {
