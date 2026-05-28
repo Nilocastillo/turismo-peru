@@ -1,6 +1,8 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const tours = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/tours" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

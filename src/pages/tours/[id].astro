@@ -13,13 +13,13 @@ export async function getStaticPaths() {
   const tours = await getCollection("tours");
 
   return tours.map((tour) => ({
-    params: { id: tour.slug },
+    params: { id: tour.id },
     props: { tour },
   }));
 }
 
 const { tour } = Astro.props;
-const { data, slug } = tour;
+const { data } = tour;
 const { title, duration, location, departure, description, image, alt } = data;
 
 const { Content } = await render(tour);
