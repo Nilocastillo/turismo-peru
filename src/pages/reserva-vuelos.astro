@@ -1,11 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+
+const description =
+  "Reserva vuelos a Perú con Turismo Perú Consultores. Encuentra las mejores ofertas para viajar a Lima, Cusco, Machu Picchu, Arequipa y más destinos.";
+const canonical = "https://www.turismoperu.com.pe/reserva-vuelos";
 ---
 
----
-
-<Layout>
-  <div class="max-w-5xl mx-auto px-4 py-10 mt-24 md:mt-48">
+<Layout
+  title="Reserva de Vuelos a Perú | Turismo Perú Consultores"
+  description={description}
+  canonical={canonical}
+>
+  <main class="max-w-5xl mx-auto px-4 py-10 mt-24 md:mt-48">
     <div class="max-w-5xl mx-auto">
       <!-- Header -->
       <div class="mb-8">
@@ -62,6 +68,7 @@ import Layout from "@/layouts/Layout.astro";
             <!-- Origen -->
             <div>
               <label
+                for="origin"
                 class="block text-xs font-bold text-slate-600 uppercase mb-2"
                 >Desde</label
               >
@@ -135,6 +142,7 @@ import Layout from "@/layouts/Layout.astro";
             <!-- Destino -->
             <div>
               <label
+                for="destination"
                 class="block text-xs font-bold text-slate-600 uppercase mb-2"
                 >Hacia</label
               >
@@ -189,6 +197,7 @@ import Layout from "@/layouts/Layout.astro";
             <!-- Departure Date -->
             <div>
               <label
+                for="departureDate"
                 class="block text-xs font-bold text-slate-600 uppercase mb-2"
                 >Ida</label
               >
@@ -206,6 +215,7 @@ import Layout from "@/layouts/Layout.astro";
             <!-- Return Date -->
             <div id="returnDateContainer">
               <label
+                for="returnDate"
                 class="block text-xs font-bold text-slate-600 uppercase mb-2"
                 >Vuelta</label
               >
@@ -225,6 +235,7 @@ import Layout from "@/layouts/Layout.astro";
             <!-- Passengers Dropdown -->
             <div class="relative">
               <label
+                for="passengers-trigger"
                 class="block text-xs font-bold text-slate-600 uppercase mb-2"
                 >Pasajeros</label
               >
@@ -378,6 +389,7 @@ import Layout from "@/layouts/Layout.astro";
             <!-- Cabin Class -->
             <div>
               <label
+                for="cabin"
                 class="block text-xs font-bold text-slate-600 uppercase mb-2"
                 >Cabina</label
               >
@@ -456,7 +468,7 @@ import Layout from "@/layouts/Layout.astro";
       </style>
 
       <!-- ... existing script code from original component ... -->
-      <script is:inline>
+      <script>
         // (Your existing JavaScript code remains exactly the same)
         const tripTypeInputs = document.querySelectorAll(
           'input[name="tripType"]'
@@ -737,5 +749,5 @@ import Layout from "@/layouts/Layout.astro";
         updatePassengersDisplay();
       </script>
     </div>
-  </div></Layout
+  </main></Layout
 >

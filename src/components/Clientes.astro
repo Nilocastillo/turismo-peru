@@ -54,20 +54,30 @@ const clientes = [
 ---
 
 <section
-  class="max-w-7xl px-6 py-12 overflow-hidden w-full relative group mx-auto flex gap-x-5 flex-col"
+  class="max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16 overflow-hidden w-full relative group mx-auto flex gap-x-5 flex-col bg-white"
 >
-  <div class="mb-5">
-    <h2
-      class="text-2xl text-balance md:text-3xl lg:text-4xl font-bold text-center text-secondary"
+  <!-- Accent line -->
+  <div class="w-16 h-px bg-primary mx-auto mb-6 animate-fade-in" />
+
+  <div class="text-center mb-2">
+    <span
+      class="block text-xs font-semibold uppercase tracking-[0.3em] text-primary-accessible/60 mb-3 animate-fade-in-up"
     >
-      Nuestros Clientes
+      CONFIANZA
+    </span>
+    <h2
+      class="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fade-in-up delay-[100ms]"
+    >
+      Clientes que <span class="text-primary">confían</span> en nosotros
     </h2>
-    <p class="text-center text-xl text-pretty">
-      Empresas e instituciones que confían en nosotros
+    <p
+      class="mt-4 text-base md:text-lg text-secondary/60 font-light max-w-2xl mx-auto animate-fade-in-up delay-[200ms]"
+    >
+      Empresas e instituciones que avalan nuestra trayectoria
     </p>
   </div>
 
-  <div class="slider-wrapper">
+  <div class="slider-wrapper mt-10">
     <div class="slider-container">
       <!-- Primera copia -->
       <div class="slider-track">
@@ -77,9 +87,9 @@ const clientes = [
               <Image
                 src={cliente.logo}
                 alt={cliente.alt}
-                widths={[96, 128, 144]}
-                sizes="(min-width: 1024px) 144px, (min-width: 768px) 128px, 96px"
-                class="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                widths={[80, 112, 128]}
+                sizes="(min-width: 1024px) 128px, (min-width: 768px) 112px, 80px"
+                class="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain grayscale transition-all duration-500 hover:grayscale-0 hover:scale-110 hover:drop-shadow-[0_4px_12px_rgba(229,35,30,0.2)]"
                 decoding="async"
                 loading="lazy"
                 fetchpriority="low"
@@ -97,9 +107,9 @@ const clientes = [
               <Image
                 src={cliente.logo}
                 alt={cliente.alt}
-                widths={[96, 128, 144]}
-                sizes="(min-width: 1024px) 144px, (min-width: 768px) 128px, 96px"
-                class="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                widths={[80, 112, 128]}
+                sizes="(min-width: 1024px) 128px, (min-width: 768px) 112px, 80px"
+                class="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain grayscale transition-all duration-500 hover:grayscale-0 hover:scale-110 hover:drop-shadow-[0_4px_12px_rgba(229,35,30,0.2)]"
                 decoding="async"
                 loading="lazy"
                 fetchpriority="low"
@@ -113,10 +123,27 @@ const clientes = [
 </section>
 
 <style>
+  /* --- Fade edges via mask --- */
   .slider-wrapper {
     width: 100%;
     overflow: hidden;
     position: relative;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
   }
 
   .slider-container {
@@ -152,6 +179,12 @@ const clientes = [
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .slider-container {
+      animation: none;
+    }
+  }
+
   /* Responsive */
   @media (max-width: 640px) {
     .slider-track {
@@ -160,6 +193,23 @@ const clientes = [
 
     .slider-container {
       animation-duration: 25s;
+    }
+
+    .slider-wrapper {
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 5%,
+        black 95%,
+        transparent 100%
+      );
     }
   }
 

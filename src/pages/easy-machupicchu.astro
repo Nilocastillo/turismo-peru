@@ -7,7 +7,7 @@ const formAction = "https://formspree.io/f/xkgqkwgj";
 const whatsappAgency = "51984209980";
 const description =
   "Reserva tu tren a Machu Picchu (Inca Rail o Perú Rail), elige tu circuito y asegura tu experiencia de forma rápida y segura.";
-const canonical = "https://turismoperu.com.pe/easy-machupicchu";
+const canonical = "https://www.turismoperu.com.pe/easy-machupicchu";
 ---
 
 <Layout title={reservas} description={description} canonical={canonical}>
@@ -58,6 +58,7 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
       id="reservationForm"
       method="POST"
       action={formAction}
+      data-whatsapp-agency={whatsappAgency}
       class="bg-white shadow-lg rounded-2xl p-8 space-y-6"
     >
       <!-- Nombre -->
@@ -242,7 +243,7 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
     </form>
   </main>
 
-  <script is:inline define:vars={{ whatsappAgency }}>
+  <script>
     document.addEventListener("astro:page-load", () => {
       const form = document.getElementById("reservationForm");
       const submitBtn = document.getElementById("submitBtn");
@@ -524,7 +525,8 @@ const canonical = "https://turismoperu.com.pe/easy-machupicchu";
           whatsappMessage += `\nPor favor, confírmame disponibilidad y precios. ¡Gracias!`;
 
           const encodedMessage = encodeURIComponent(whatsappMessage);
-          const waUrl = `https://wa.me/${whatsappAgency}?text=${encodedMessage}`;
+          const agency = form.dataset.whatsappAgency || "51984209980";
+          const waUrl = `https://wa.me/${agency}?text=${encodedMessage}`;
 
           // Simular pequeño delay para mejor UX
           await new Promise((resolve) => setTimeout(resolve, 500));

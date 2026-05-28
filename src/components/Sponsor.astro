@@ -10,78 +10,61 @@ import SafeTravels from "@/assets/img-sponsor/safetravels.webp";
 import TurismoResponsable from "@/assets/img-sponsor/turismoresponsable.webp";
 
 const sponsors = [
-  {
-    logo: Iso9001,
-    name: "Certificación ISO 9001",
-    alt: "Logo de Certificación ISO 9001",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: Iso14001,
-    name: "Certificación ISO 14001",
-    alt: "Logo de Certificación ISO 14001",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: Iata,
-    name: "Certificación IATA",
-    alt: "Logo de Certificación IATA",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: MarcaPeru,
-    name: "Certificación Marca Peru",
-    alt: "Logo de Certificación Marca Peru",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: TripAdvisor,
-    name: "Certificación TripAdvisor",
-    alt: "Logo de Certificación TripAdvisor",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: Gercetur,
-    name: "Certificación Gercetur",
-    alt: "Logo de Certificación Gercetur",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: SafeTravels,
-    name: "Certificación SafeTravels",
-    alt: "Logo de Certificación SafeTravels",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
-  {
-    logo: TurismoResponsable,
-    name: "Certificación Turismo Responsable",
-    alt: "Logo de Certificación Turismo Responsable",
-    size: "w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48",
-  },
+  { logo: Iso9001, name: "Certificación ISO 9001", alt: "Logo de Certificación ISO 9001" },
+  { logo: Iso14001, name: "Certificación ISO 14001", alt: "Logo de Certificación ISO 14001" },
+  { logo: Iata, name: "Certificación IATA", alt: "Logo de Certificación IATA" },
+  { logo: MarcaPeru, name: "Certificación Marca Peru", alt: "Logo de Certificación Marca Peru" },
+  { logo: TripAdvisor, name: "Certificación TripAdvisor", alt: "Logo de Certificación TripAdvisor" },
+  { logo: Gercetur, name: "Certificación Gercetur", alt: "Logo de Certificación Gercetur" },
+  { logo: SafeTravels, name: "Certificación SafeTravels", alt: "Logo de Certificación SafeTravels" },
+  { logo: TurismoResponsable, name: "Certificación Turismo Responsable", alt: "Logo de Certificación Turismo Responsable" },
 ];
 ---
 
-<section class="py-12">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <div class="text-center mb-8">
-      <h2
-        class="text-2xl text-balance md:text-3xl lg:text-4xl font-bold text-center text-secondary"
+<section class="py-12 md:py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Accent line -->
+    <div class="w-16 h-px bg-primary mx-auto mb-6 animate-fade-in" />
+
+    <div class="text-center">
+      <span
+        class="block text-xs font-semibold uppercase tracking-[0.3em] text-primary-accessible/60 mb-3 animate-fade-in-up"
       >
-        Nuestras Certificaciones
+        RESPALDO
+      </span>
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary animate-fade-in-up delay-[100ms]"
+      >
+        Certificaciones y <span class="text-primary">Garantía</span>
       </h2>
+      <p
+        class="mt-4 text-base md:text-lg text-secondary/60 font-light max-w-2xl mx-auto animate-fade-in-up delay-[200ms]"
+      >
+        Respaldados por las principales certificaciones del sector turístico
+        peruano e internacional
+      </p>
     </div>
+
     <div
-      class="mt-12 grid select-none grid-cols-2 md:grid-cols-4 gap-2 md:gap-8 justify-items-center"
+      class="mt-10 grid select-none grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 justify-items-center"
     >
       {
-        sponsors.map((sponsor) => (
-          <div class="company-link group relative flex h-32 w-32 items-center justify-center overflow-hidden md:h-40 md:w-40 px-4">
+        sponsors.map((sponsor, i) => (
+          <div
+            class="company-link group relative flex h-24 w-24 items-center justify-center p-2 md:h-28 md:w-28 md:p-3 animate-fade-in-up"
+            style={`animation-delay: ${(i + 1) * 100}ms`}
+          >
+            <!-- Corner brackets -->
+            <span class="corner corner-tl" aria-hidden="true"></span>
+            <span class="corner corner-tr" aria-hidden="true"></span>
+            <span class="corner corner-bl" aria-hidden="true"></span>
+            <span class="corner corner-br" aria-hidden="true"></span>
             <Image
               src={sponsor.logo}
               alt={sponsor.alt}
-              widths={[128, 160, 192]}
-              sizes="(min-width: 768px) 160px, 128px"
-              class={`company-logo text-white transition group-hover:scale-110 group-focus:scale-105 duration-300`}
+              widths={[96, 112, 128]}
+              sizes="(min-width: 768px) 112px, 96px"
+              class="max-h-full max-w-full object-contain transition duration-300 group-hover:scale-110 group-focus:scale-105"
               quality={95}
               format="webp"
               decoding="async"
@@ -95,28 +78,130 @@ const sponsors = [
   </div>
 </section>
 <style>
-  @media (prefers-reduced-motion) {
-    .company-link::before {
+  /* --- Corner bracket lines --- */
+  .corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .corner::before,
+  .corner::after {
+    content: "";
+    position: absolute;
+    background: var(--color-primary);
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  /* Horizontal arms — start scaled 0 */
+  .corner::before {
+    height: 1.5px;
+    transform: scaleX(0);
+    transform-origin: var(--origin-h, left center);
+  }
+
+  /* Vertical arms — start scaled 0 */
+  .corner::after {
+    width: 1.5px;
+    transform: scaleY(0);
+    transform-origin: var(--origin-v, top center);
+  }
+
+  .group:hover .corner::before,
+  .group:focus-within .corner::before {
+    transform: scaleX(1);
+  }
+  .group:hover .corner::after,
+  .group:focus-within .corner::after {
+    transform: scaleY(1);
+  }
+
+  /* --- Top-Left --- */
+  .corner-tl {
+    top: -1px;
+    left: -1px;
+  }
+  .corner-tl::before {
+    top: 0;
+    left: 0;
+    width: 18px;
+    --origin-h: left center;
+  }
+  .corner-tl::after {
+    top: 0;
+    left: 0;
+    height: 18px;
+    --origin-v: top center;
+  }
+
+  /* --- Top-Right --- */
+  .corner-tr {
+    top: -1px;
+    right: -1px;
+  }
+  .corner-tr::before {
+    top: 0;
+    right: 0;
+    width: 18px;
+    --origin-h: right center;
+  }
+  .corner-tr::after {
+    top: 0;
+    right: 0;
+    height: 18px;
+    --origin-v: top center;
+  }
+
+  /* --- Bottom-Left --- */
+  .corner-bl {
+    bottom: -1px;
+    left: -1px;
+  }
+  .corner-bl::before {
+    bottom: 0;
+    left: 0;
+    width: 18px;
+    --origin-h: left center;
+  }
+  .corner-bl::after {
+    bottom: 0;
+    left: 0;
+    height: 18px;
+    --origin-v: bottom center;
+  }
+
+  /* --- Bottom-Right --- */
+  .corner-br {
+    bottom: -1px;
+    right: -1px;
+  }
+  .corner-br::before {
+    bottom: 0;
+    right: 0;
+    width: 18px;
+    --origin-h: right center;
+  }
+  .corner-br::after {
+    bottom: 0;
+    right: 0;
+    height: 18px;
+    --origin-v: bottom center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .corner::before,
+    .corner::after {
       transition: none;
     }
-  }
-
-  .company-link:hover::before,
-  .company-link:focus::before {
-    opacity: 0.8;
-    height: 90%;
-    box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.75);
-  }
-
-  .company-link:hover .company-logo,
-  .company-link:focus .company-logo {
-    transform: scale(1.05);
-  }
-
-  @media (prefers-reduced-motion) {
-    .company-link:hover .company-logo,
-    .company-link:focus .company-logo {
-      transform: scale(1);
+    .group:hover .corner::before,
+    .group:focus-within .corner::before {
+      transform: scaleX(1);
+    }
+    .group:hover .corner::after,
+    .group:focus-within .corner::after {
+      transform: scaleY(1);
     }
   }
 </style>

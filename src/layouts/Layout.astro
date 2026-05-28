@@ -49,6 +49,7 @@ const pageTitle = title ? `${title}` : fixedTitle;
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PE" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={pageTitle} />
@@ -57,6 +58,7 @@ const pageTitle = title ? `${title}` : fixedTitle;
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@turismoperupe" />
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
@@ -71,6 +73,7 @@ const pageTitle = title ? `${title}` : fixedTitle;
         image: ogImage,
         description: description,
         url: canonical,
+        logo: "https://www.turismoperu.com.pe/tpc-logo-vertical.svg",
         telephone: "+51984209980",
         address: {
           "@type": "PostalAddress",
@@ -81,11 +84,22 @@ const pageTitle = title ? `${title}` : fixedTitle;
           postalCode: "08000",
           addressCountry: "PE",
         },
+        sameAs: [
+          "https://www.facebook.com/turismoperuconsultores",
+          "https://www.instagram.com/turismoperuconsultores/",
+          "https://x.com/turismoperupe",
+        ],
       }}
     />
     <ClientRouter />
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-white focus:text-primary-accessible focus:rounded-lg focus:ring-2 focus:ring-primary-accessible focus:shadow-lg focus:text-sm focus:font-bold"
+    >
+      Saltar al contenido principal
+    </a>
     <Header />
     <slot />
     <WhatsAppFooter />

@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
-
+import CategoryHeader from "@/components/CategoryHeader.astro";
 import { fullday } from "@/consts/pageTitles";
 
 const tours = (await getCollection("tours")).filter(
@@ -11,30 +11,18 @@ const tours = (await getCollection("tours")).filter(
 
 const description =
   "Descubre los mejores tours Full Day en Perú: excursiones de 1 día con transporte, guía profesional y visitas a Paracas, Huacachina, Ica, Lima, Cusco y otros destinos imperdibles. Explora la cultura, naturaleza y aventuras en un solo día con experiencias completas y cómodas para viajeros de todo el mundo.";
-const canonical = "https://turismoperu.com.pe/fullday";
+const canonical = "https://www.turismoperu.com.pe/fullday";
 ---
 
 <Layout title={fullday} description={description} canonical={canonical}>
-  <main class="max-w-7xl mx-auto px-4 py-10">
-    <header
-      class="max-w-2xl mx-auto pt-7 flex flex-col gap-5 mt-24 md:mt-48 mb-14"
-    >
-      <h1
-        class="text-balance text-center text-5xl md:text-7xl tracking-tight mb-4"
-      >
-        Experiencias Full Day en Perú
-      </h1>
-      <p class="text-lg text-pretty text-black mx-auto">
-        Vive las mejores experiencias de aventura Full Day en Perú con tours de
-        trekking en los Andes, senderismo de montaña, rafting y kayak en ríos
-        andinos, ciclismo de aventura, eco-aventura y rutas inolvidables por el
-        Valle Sagrado. Explora paisajes naturales únicos y descubre Machu Picchu
-        en excursiones de un día diseñadas para viajeros amantes de la
-        adrenalina y la naturaleza.
-      </p>
-    </header>
+  <main>
+    <CategoryHeader
+      label="FULL DAY"
+      title="Experiencias Full Day en Perú"
+      description="Vive las mejores experiencias de aventura Full Day en Perú con tours de trekking en los Andes, senderismo de montaña, rafting y kayak en ríos andinos, ciclismo de aventura, eco-aventura y rutas inolvidables por el Valle Sagrado."
+    />
     <section
-      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
       aria-label="Tours Full Day"
     >
       {

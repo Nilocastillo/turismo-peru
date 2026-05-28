@@ -11,23 +11,22 @@ const {
 const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 ---
 
-<div class="flex justify-center mt-6">
+<div class="flex justify-center mt-4">
   <a
     href={whatsappLink}
     target="_blank"
     rel="noopener noreferrer"
-    class="relative inline-flex items-center px-10 py-5 bg-green-600 hover:bg-green-700 text-white text-xl font-bold rounded-2xl shadow-lg transition-transform duration-300 hover:scale-105"
+    class="group relative inline-flex items-center px-10 py-5 bg-primary-accessible hover:bg-primary-accessible/90 text-white text-lg font-semibold rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5"
   >
-    <!-- Efecto ping -->
+    <!-- Glow sutil en hover -->
     <span
-      class="absolute inset-0 rounded-2xl bg-green-400 opacity-50 animate-ping"
+      class="absolute inset-0 rounded-xl bg-white/0 group-hover:bg-white/5 transition-colors duration-300"
     ></span>
 
-    <!-- Contenido del botón -->
-    <div class="relative flex items-center z-10">
+    <span class="relative flex items-center">
       <!-- SVG WhatsApp -->
       <svg
-        class="w-7 h-7 mr-3"
+        class="w-6 h-6 mr-3"
         fill="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +37,21 @@ const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(message)}
       </svg>
 
       Consultar disponibilidad
-    </div>
+
+      <!-- Flecha derecha sutil -->
+      <svg
+        class="w-5 h-5 ml-3 -mr-1 transition-transform duration-300 group-hover:translate-x-1"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17 8l4 4m0 0l-4 4m4-4H3"
+        />
+      </svg>
+    </span>
   </a>
 </div>

@@ -9,111 +9,112 @@ const navItems = [
 ---
 
 <nav
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent bg-white"
+  id="main-nav"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white"
+  data-scroll="false"
 >
-  <div
-    class="max-w-7xl mx-auto flex justify-around items-center pt-6 pb-2 relative"
-  >
-    <!-- Enlaces del lado izquierdo -->
+  <div class="max-w-7xl mx-auto px-6 py-3 lg:py-5 relative">
+    <!-- Desktop layout -->
+    <div class="hidden md:flex items-center justify-center gap-12 lg:gap-16">
+      <div class="flex items-center gap-5 lg:gap-6">
+        {
+          navItems.slice(0, 2).map((item) => (
+            <a
+              href={item.href.startsWith("/") ? item.href : `/${item.href}`}
+              class={`relative text-sm font-semibold uppercase tracking-[0.15em] transition-all duration-300 ${
+                item.featured
+                  ? "border border-primary-accessible text-primary-accessible hover:bg-primary-accessible hover:text-white rounded-full px-5 py-1.5"
+                  : "nav-link text-secondary hover:text-primary-accessible/80 px-2 py-1.5"
+              }`}
+            >
+              {item.text}
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="flex flex-col items-center logo-container">
+        <a href="/" class="block">
+          <img
+            src="/tpc-logo-vertical.svg"
+            alt="logo turismo Per\u00fa Consultores"
+            width="284"
+            height="160"
+            class="h-12 lg:h-16 w-auto object-contain transition-transform duration-300"
+            loading="eager"
+          />
+        </a>
+        <p class="text-[10px] font-bold text-secondary/55 tracking-wider leading-none mt-1">RUC:20612570371</p>
+      </div>
+
+      <div class="flex items-center gap-5 lg:gap-6">
+        {
+          navItems.slice(2).map((item) => (
+            <a
+              href={item.href.startsWith("/") ? item.href : `/${item.href}`}
+              class="relative text-sm font-semibold uppercase tracking-[0.15em] text-secondary hover:text-primary-accessible/80 nav-link px-2 py-1.5 transition-all duration-300"
+            >
+              {item.text}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Mobile layout -->
+    <div class="flex md:hidden items-center">
+      <div class="flex-1"></div>
+      <div class="flex flex-col items-center logo-container">
+        <a href="/" class="block">
+          <img
+            src="/tpc-logo-vertical.svg"
+            alt="logo turismo Per\u00fa Consultores"
+            width="284"
+            height="160"
+            class="h-12 w-auto object-contain transition-transform duration-300"
+            loading="eager"
+          />
+        </a>
+        <p class="text-[10px] font-bold text-secondary/55 tracking-wider leading-none mt-1">RUC:20612570371</p>
+      </div>
+      <div class="flex-1 flex justify-end">
+        <button
+          aria-label="Abrir men\u00fa de navegaci\u00f3n"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          class="p-2 text-secondary focus:outline-none focus:ring-2 focus:ring-primary-accessible focus:ring-offset-2 z-20"
+          id="mobile-menu-button"
+        >
+          <div class="w-6 h-5 relative flex flex-col justify-between" id="hamburger-icon">
+            <span class="block h-0.5 w-full bg-current transition-all duration-300 origin-center rounded"></span>
+            <span class="block h-0.5 w-full bg-current transition-all duration-300 rounded"></span>
+            <span class="block h-0.5 w-full bg-current transition-all duration-300 origin-center rounded"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll indicator line -->
     <div
-      class="md:flex hidden lg:block items-center gap-12 space-x-4 md:-space-x-8 lg:space-x-10 lg:ml-10 z-10"
-    >
-      {
-        navItems.slice(0, 2).map((item) => (
-          <a
-            href={item.href.startsWith("/") ? item.href : `/${item.href}`}
-            class={`text-base transition-all duration-300 py-1 px-4 pb-0.5 rounded-full ${
-              item.featured
-                ? "border-2 bg-green-200 border-green-700 text-green-700 font-bold hover:bg-green-900 hover:text-white hover:border-transparent shadow-md animate-pulse"
-                : "text-secondary hover:bg-primary hover:text-white"
-            }`}
-          >
-            {item.text}
-          </a>
-        ))
-      }
-    </div>
-
-    <!-- Logo centrado -->
-    <div class="logo-container">
-      <a href="/" class="block">
-        <img
-          src="/tpc-logo-vertical.svg"
-          alt="logo turismo Perú Consultores"
-          class="h-14 lg:h-20 w-auto object-contain"
-          loading="eager"
-        />
-      </a>
-      <p class="text-[12px] font-medium mt-2 text-center">RUC:20612570371</p>
-    </div>
-
-    <!-- Enlaces del lado derecho -->
-    <div
-      class="md:flex hidden lg:block items-center space-x-4 md:-space-x-8 lg:space-x-10 space-x-reverse flex-row-reverse z-10"
-    >
-      {
-        navItems.slice(2).map((item) => (
-          <a
-            href={item.href.startsWith("/") ? item.href : `/${item.href}`}
-            class="text-base transition-all duration-300 py-1 px-4 pb-0.5 text-secondary hover:bg-primary rounded-full hover:text-white"
-          >
-            {item.text}
-          </a>
-        ))
-      }
-    </div>
-
-    <!-- Botón menú móvil -->
-    <button
-      aria-label="Abrir menú de navegación"
-      aria-controls="mobile-menu"
-      aria-expanded="false"
-      class="md:hidden p-2 text-primary focus:outline-none z-20 absolute right-6"
-      id="mobile-menu-button"
-    >
-      <svg
-        id="icon-hamburger"
-        class="w-6 h-6 cursor-pointer"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-
-      <svg
-        id="icon-close"
-        class="w-6 h-6 cursor-pointer hidden"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
+      id="scroll-line"
+      class="absolute bottom-0 left-6 right-6 h-[1px] bg-primary/25 opacity-0 transition-opacity duration-300 pointer-events-none"
+    ></div>
   </div>
 
+  <!-- Mobile menu -->
   <div
-    class="hidden md:hidden absolute top-full left-0 right-0 w-full bg-opacity-95 bg-white shadow-lg z-50"
+    class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0"
     id="mobile-menu"
   >
-    <div class="px-4 pt-4 pb-5 space-y-3 max-w-md mx-auto">
+    <div class="px-6 pb-6 pt-2 space-y-2 bg-white/95 backdrop-blur-lg">
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class={`block py-2 px-4 font-bebas tracking-wide text-lg text-center hover:text-primary ${
+            class={`block py-3 px-4 text-sm font-semibold uppercase tracking-[0.15em] text-center transition-all duration-300 ${
               item.featured
-                ? "border-2 bg-green-200 border-green-700 text-green-700 font-bold hover:bg-green-900 hover:text-white shadow-md animate-pulse"
-                : "text-secondary hover:bg-primary hover:text-white"
+                ? "border border-primary-accessible text-primary-accessible hover:bg-primary-accessible hover:text-white rounded-full"
+                : "text-secondary hover:text-primary-accessible/80 rounded-md hover:bg-gray-50"
             }`}
           >
             {item.text}
@@ -125,83 +126,134 @@ const navItems = [
 </nav>
 
 <style>
-  :global(.navbar-scrolled) {
-    background-color: white;
-    transform: translateY(0);
-    transition: all 0.3s ease;
-    border-bottom: 0.5px solid var(--color-primary);
+  #main-nav[data-scroll="true"] {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
   }
 
-  :global(.navbar-scrolled .logo-container img) {
-    transform: scale(0.9);
+  #main-nav[data-scroll="true"] #scroll-line {
+    opacity: 1;
   }
 
-  nav a img {
-    transition: transform 0.3s ease;
+  #main-nav[data-scroll="true"] .logo-container img {
+    transform: scale(0.85);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--color-primary);
+    transition: width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateX(-50%);
+  }
+
+  .nav-link:hover::after {
+    width: calc(100% - 1rem);
+  }
+
+  .hamburger-open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+
+  .hamburger-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
   }
 </style>
 
 <script>
+  let ac: AbortController | null = null;
+
   document.addEventListener("astro:page-load", () => {
+    // Cleanup ALL previous listeners from last navigation
+    if (ac) ac.abort();
+    ac = new AbortController();
+    const { signal } = ac;
+
+    const navbar = document.getElementById("main-nav");
     const menuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
-    const iconHamburger = document.getElementById("icon-hamburger");
-    const iconClose = document.getElementById("icon-close");
+    const hamburgerIcon = document.getElementById("hamburger-icon");
 
-    if (menuButton && mobileMenu && iconHamburger && iconClose) {
-      menuButton.addEventListener("click", (e) => {
-        e.stopPropagation();
-        mobileMenu.classList.toggle("hidden");
-        iconHamburger.classList.toggle("hidden");
-        iconClose.classList.toggle("hidden");
+    // === Scroll handler (works independently of mobile menu) ===
+    const handleScroll = () => {
+      if (!navbar) return;
+      if (window.scrollY > 50) {
+        navbar.setAttribute("data-scroll", "true");
+      } else {
+        navbar.setAttribute("data-scroll", "false");
+      }
+    };
 
-        const expanded = mobileMenu.classList.contains("hidden")
-          ? "false"
-          : "true";
-        menuButton.setAttribute("aria-expanded", expanded);
-      });
+    window.addEventListener("scroll", handleScroll, { passive: true, signal });
+    handleScroll(); // ← INIT: set correct state immediately
 
-      document.addEventListener("click", (e) => {
-        const target = e.target as Node;
-        const isClickInside =
-          (menuButton?.contains(target) ?? false) ||
-          (mobileMenu?.contains(target) ?? false);
+    // === Mobile menu toggle ===
+    if (menuButton && mobileMenu && hamburgerIcon) {
+      menuButton.addEventListener(
+        "click",
+        (e) => {
+          e.stopPropagation();
+          const isOpen = mobileMenu.classList.contains("max-h-0");
 
-        if (!mobileMenu?.classList.contains("hidden") && !isClickInside) {
-          mobileMenu?.classList.add("hidden");
-          iconHamburger?.classList.remove("hidden");
-          iconClose?.classList.add("hidden");
-          menuButton?.setAttribute("aria-expanded", "false");
-        }
-      });
+          if (isOpen) {
+            mobileMenu.classList.remove("max-h-0");
+            mobileMenu.classList.add("max-h-96");
+            hamburgerIcon.classList.add("hamburger-open");
+            menuButton.setAttribute("aria-expanded", "true");
+          } else {
+            mobileMenu.classList.remove("max-h-96");
+            mobileMenu.classList.add("max-h-0");
+            hamburgerIcon.classList.remove("hamburger-open");
+            menuButton.setAttribute("aria-expanded", "false");
+          }
+        },
+        { signal }
+      );
 
-      const navbar = document.querySelector("nav");
-      const handleScroll = () => {
-        if (window.scrollY > 50) {
-          navbar?.classList.add("navbar-scrolled");
-        } else {
-          navbar?.classList.remove("navbar-scrolled");
-        }
-      };
+      // Close mobile menu when clicking outside
+      window.addEventListener(
+        "click",
+        (e) => {
+          const target = e.target as Node;
+          const isClickInside =
+            (menuButton?.contains(target) ?? false) ||
+            (mobileMenu?.contains(target) ?? false);
 
-      window.addEventListener("scroll", handleScroll);
+          if (!mobileMenu?.classList.contains("max-h-0") && !isClickInside) {
+            mobileMenu?.classList.remove("max-h-96");
+            mobileMenu?.classList.add("max-h-0");
+            hamburgerIcon?.classList.remove("hamburger-open");
+            menuButton?.setAttribute("aria-expanded", "false");
+          }
+        },
+        { signal }
+      );
 
+      // Close mobile menu on navigation (link click)
       const closeMenu = () => {
-        if (!mobileMenu || !menuButton || !iconHamburger || !iconClose) return;
-        if (mobileMenu.classList.contains("hidden")) return;
-        mobileMenu.classList.add("hidden");
-        iconHamburger.classList.remove("hidden");
-        iconClose.classList.add("hidden");
+        if (!mobileMenu || !menuButton || !hamburgerIcon) return;
+        if (mobileMenu.classList.contains("max-h-0")) return;
+        mobileMenu.classList.remove("max-h-96");
+        mobileMenu.classList.add("max-h-0");
+        hamburgerIcon.classList.remove("hamburger-open");
         menuButton.setAttribute("aria-expanded", "false");
       };
 
-      if (mobileMenu) {
-        mobileMenu.querySelectorAll("a").forEach((a) => {
-          a.addEventListener("click", closeMenu);
-        });
-      }
+      mobileMenu.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", closeMenu, { signal });
+      });
 
-      window.addEventListener("hashchange", closeMenu);
+      window.addEventListener("hashchange", closeMenu, { signal });
     }
   });
 </script>

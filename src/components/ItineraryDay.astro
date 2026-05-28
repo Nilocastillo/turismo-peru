@@ -1,23 +1,27 @@
 ---
-// src/components/ItineraryDay.astro
 const { day, title } = Astro.props;
 ---
 
-<div class="relative pl-10 mb-8">
-  <!-- Línea vertical -->
-  <span class="absolute mt-10 left-7 top-0 w-0.5 bg-black h-full"></span>
+<div class="relative pl-14 mb-10 last:mb-0">
+  <!-- Línea vertical con degradado (color → transparente) -->
+  <span
+    class="absolute left-5 top-11 bottom-0 w-px bg-gradient-to-b from-secondary/25 to-secondary/0"
+    aria-hidden="true"
+  ></span>
 
   <!-- Círculo del día -->
   <span
-    class="absolute left-0 top-0 h-14 w-14 rounded-full bg-black flex items-center justify-center text-white font-bold"
+    class="absolute left-0 top-0 w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white text-sm font-bold shadow-sm"
   >
     {day}
   </span>
 
   <!-- Contenido del día -->
-  <div class="mb-4 ml-8">
-    <h3 class="text-xl font-semibold mb-2 text-secondary">{title}</h3>
-    <div class="prose prose-invert">
+  <div class="pt-0.5">
+    <h3 class="text-xl md:text-2xl font-semibold text-secondary mb-3">
+      {title}
+    </h3>
+    <div class="text-secondary/70 leading-relaxed space-y-3 text-pretty">
       <slot />
     </div>
   </div>

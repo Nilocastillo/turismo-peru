@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import Card from "@/components/Card.astro";
+import CategoryHeader from "@/components/CategoryHeader.astro";
 
 import { aventura } from "@/consts/pageTitles";
 
@@ -11,28 +12,18 @@ const tours = (await getCollection("tours")).filter(
 
 const description =
   "Explora Perú con nuestros tours de aventura: trekking, montañas, lagunas y experiencias únicas en contacto con la naturaleza.";
-const canonical = "https://turismoperu.com.pe/aventura";
+const canonical = "https://www.turismoperu.com.pe/aventura";
 ---
 
 <Layout title={aventura} description={description} canonical={canonical}>
-  <main class="max-w-7xl mx-auto px-4 py-10">
-    <header
-      class="max-w-2xl mx-auto pt-7 flex flex-col gap-5 mt-24 md:mt-48 mb-14"
-    >
-      <h1
-        class="text-balance text-center text-5xl md:text-7xl tracking-tight mb-4"
-      >
-        Experiencias de Aventura en Perú
-      </h1>
-      <p class="text-lg text-pretty text-black mx-auto">
-        Ofrecemos una amplia variedad de experiencias como Tours de Aventura,
-        Trekking en Perú, Senderismo en los Andes, Rafting y Kayak, Ciclismo,
-        Excursiones de Aventura, Rutas en Valle Sagrado, Aventura Extrema,
-        Eco-Aventura y la oportunidad de Explorar Machu Picchu.
-      </p>
-    </header>
+  <main>
+    <CategoryHeader
+      label="AVENTURA"
+      title="Experiencias de Aventura en Perú"
+      description="Ofrecemos una amplia variedad de experiencias como Tours de Aventura, Trekking en Perú, Senderismo en los Andes, Rafting y Kayak, Ciclismo, Rutas en Valle Sagrado, Aventura Extrema, Eco-Aventura y la oportunidad de Explorar Machu Picchu."
+    />
     <section
-      class="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
       aria-label="Tours de Aventura"
     >
       {

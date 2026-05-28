@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
 const { tour } = Astro.props;
 const { data } = tour;
-const { title, duration, location, departure, description, image, alt } = data;
+const { title, duration, location, departure, description, image, alt, category } = data;
 
 const { Content } = await render(tour);
 
@@ -33,50 +33,93 @@ export const prerender = true;
   description={description}
   canonical={canonical}
 >
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Header -->
-
-    <header
-      class="relative w-full aspect-[1440/800] mb-12 mt-30 md:mt:24 overflow-hidden"
+  <main>
+    <!-- Hero editorial -->
+    <section
+      id="tour-hero"
+      class="relative w-full h-[55vh] md:h-[65vh] pt-16 md:pt-20 overflow-hidden"
     >
-      <!-- Imagen optimizada con Astro -->
-      {
-        image && (
-          <Image
-            src={image}
-            alt={alt}
-            widths={[640, 1024, 1440, 1920]}
-            sizes="100vw"
-            class="absolute inset-0 w-full h-full object-cover"
-            decoding="async"
-            loading="eager"
-            fetchpriority="high"
-          />
-        )
-      }
+      <!-- Parallax container -->
+      <div class="absolute inset-0 overflow-hidden">
+        {
+          image && (
+            <Image
+              src={image}
+              alt={alt}
+              widths={[640, 1024, 1440, 1920]}
+              sizes="100vw"
+              id="tour-hero-image"
+              class="absolute inset-0 w-full h-[120%] -top-[10%] object-cover will-change-transform"
+              decoding="async"
+              loading="eager"
+              fetchpriority="high"
+            />
+          )
+        }
+      </div>
 
-      <!-- Overlay oscuro -->
-      <div class="absolute inset-0 bg-black/40"></div>
+      <!-- Overlay oscuro limpio -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
 
-      <!-- Contenido centrado -->
+      <!-- Editorial content -->
       <div
-        class="relative z-10 flex flex-col justify-center items-center h-full text-center px-4"
+        class="relative z-10 flex flex-col justify-center items-center h-full text-center px-4 max-w-4xl mx-auto pb-8"
       >
-        <h1 class="text-4xl md:text-5xl font-bold drop-shadow-lg text-white">
+        <!-- Category badge -->
+        <span
+          class="inline-block px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-white border border-white/30 rounded-full mb-6 backdrop-blur-sm"
+        >
+          {category}
+        </span>
+
+        <h1
+          class="text-balance text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white drop-shadow-lg"
+        >
           {title}
         </h1>
         <p
-          class="text-base md:text-lg opacity-90 drop-shadow-md mt-2 text-white"
+          class="text-sm md:text-base text-white/80 mt-5 flex items-center gap-2 justify-center flex-wrap"
         >
-          {duration} | {location} | {departure}
+          <span>{duration}</span>
+          <span>{location}</span>
+          <span>{departure}</span>
         </p>
       </div>
-    </header>
-
-    <!-- Contenido -->
-    <section class="">
-      <Content />
-      <WhatsAppButton />
     </section>
+
+    <!-- Contenido editorial -->
+    <article class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <Content />
+
+      <div class="mt-12 pt-8 border-t border-secondary/10">
+        <WhatsAppButton />
+      </div>
+    </article>
   </main>
 </Layout>
+
+<script>
+  let ac: AbortController | null = null;
+
+  document.addEventListener("astro:page-load", () => {
+    if (ac) ac.abort();
+    ac = new AbortController();
+    const { signal } = ac;
+
+    const hero = document.getElementById("tour-hero");
+    const heroImage = document.getElementById("tour-hero-image");
+    if (!hero || !heroImage) return;
+
+    const handleScroll = () => {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      // Solo aplicar parallax mientras el hero esté visible
+      if (heroBottom > -100) {
+        const offset = Math.min(window.scrollY * 0.25, 70);
+        heroImage.style.transform = `translateY(${offset}px)`;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true, signal });
+    handleScroll();
+  });
+</script>
