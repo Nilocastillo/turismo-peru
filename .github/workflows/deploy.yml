@@ -31,4 +31,3 @@ jobs:
           local-dir: dist/
           server-dir: /
           security: loose
-          dangerous-clean-slate: true
