@@ -29,5 +29,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME_TPC }}
           password: ${{ secrets.FTP_PASSWORD_TPC }}
           local-dir: dist/
-          server-dir: /
+          server-dir: ./
           security: loose
