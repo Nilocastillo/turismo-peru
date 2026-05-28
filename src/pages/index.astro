@@ -7,7 +7,6 @@ import Clientes from "@/components/Clientes.astro";
 
 import { getCollection } from "astro:content";
 import CulturalBento from "@/components/CulturalBento.astro";
-import { Schema } from "astro:schema";
 
 const tours = await getCollection("tours");
 const culturalTours = tours.filter((t) => t.data.category === "cultural");

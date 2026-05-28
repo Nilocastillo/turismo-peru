@@ -3,18 +3,21 @@ name: Deploy to Namecheap via FTP
 on:
   push:
     branches:
-      - main # o la rama que uses para producción
+      - main
 
 jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
         run: bun install
@@ -23,11 +26,11 @@ jobs:
         run: bun run build
 
       - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.turismoperu.com.pe
           username: ${{ secrets.FTP_USERNAME_TPC }}
           password: ${{ secrets.FTP_PASSWORD_TPC }}
-          local-dir: dist/
+          local-dir: ./dist/
           server-dir: /
           security: loose
